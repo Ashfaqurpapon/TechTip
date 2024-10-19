@@ -38,6 +38,7 @@ export interface IUser {
   phone: string;
   address?: string;
   imageUrlID?: string;
+  isPremium: boolean;
   isDeleted?: boolean;
   createdAt?: Date;
   updatedAt?: Date;

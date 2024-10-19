@@ -140,7 +140,7 @@ export default function Post({ post }: IProps) {
   return (
     <div className="relative p-4 mb-2 rounded-md bg-default-100">
       {/* Premium Button in upper-right corner */}
-
+      <Link href={`/following?userId=${userId}`} passHref></Link>
       {/* Card Header with post user information */}
       <div className="pb-2 border-b border-default-200">
         <div className="flex items-center justify-between pb-4">

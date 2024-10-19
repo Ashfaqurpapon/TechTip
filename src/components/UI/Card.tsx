@@ -49,8 +49,7 @@ export default function Post({ post }: IProps) {
 
     if (response.ok) {
       const data = await response.json();
-      console.log("Limon all comments");
-      console.log(data.data);
+
       setAllComments(data.data);
     } else {
       console.error("Error fetching user data:", response.statusText);
