@@ -5,6 +5,7 @@ import { FieldValues } from "react-hook-form";
 import { jwtDecode } from "jwt-decode";
 
 import axiosInstance from "@/src/lib/AxiosInstance";
+import { initiatePayment } from "../PaymentService";
 
 export const registerUser = async (userData: FieldValues) => {
   try {
@@ -15,6 +16,29 @@ export const registerUser = async (userData: FieldValues) => {
     }
 
     return data;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};
+
+export const makePayment = async (userData: FieldValues) => {
+  try {
+    console.log("Limon initiatePaymentCon is called");
+    const transactionId = `TXN-${Date.now()}`;
+    const paymentData = {
+      transactionId,
+      totalPrice: "12424",
+      custormerName: "Lion",
+      customerEmail: "accacac@gmail.com",
+      customerPhone: "1222",
+      customerAddress: "gtgtgt47",
+    };
+
+    const paymentSession = await initiatePayment(paymentData);
+
+    console.log(paymentSession);
+
+    return paymentSession;
   } catch (error: any) {
     throw new Error(error);
   }
@@ -54,6 +78,7 @@ export const getCurrentUser = async () => {
       name: data.data.name,
       email: data.data.email,
       phone: data.data.phone,
+      imageUrlID: data.data.imageUrlID,
       role: decodedToken.role,
       // status: decodedToken.status,
       // profilePhoto: decodedToken.profilePhoto,

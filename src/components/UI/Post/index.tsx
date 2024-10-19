@@ -1,16 +1,21 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Avatar } from "@nextui-org/avatar";
 import { Heart, MessageCircle, ThumbsUp } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@nextui-org/button";
 
 import { useUser } from "@/src/context/user.provider";
-import { IPost, IUser } from "@/src/types";
+import { IComment, IPost, IUser } from "@/src/types";
+
+import { CldImage } from "next-cloudinary";
+import Comment from "../Comment";
 
 interface IProps {
   post: IPost;
 }
+
+// Define the type for the propsde
 
 export default function Post({ post }: IProps) {
   const {
@@ -24,40 +29,127 @@ export default function Post({ post }: IProps) {
   } = post || {};
   const { name, email } = (userId as IUser) || {};
 
-  const { user: loggedInUser } = useUser();
-
-  // State to toggle comment box visibility
+  // State to toggle comment box
+  const [postUser, setPostUser] = useState<IUser | null>(null);
+  const [localNumberOfLikes, setlocalNumberOfLikes] = useState<number>(0);
+  const [allComments, setAllComments] = useState<IComment[]>([]);
   const [showCommentBox, setShowCommentBox] = useState(false);
   const [comment, setComment] = useState("");
 
+  const getComments = async () => {
+    const token = getCookie("token");
+    const response = await fetch(
+      `http://localhost:8000/api/comment/comment/${_id}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Optionally add token if needed for auth
+        },
+      }
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log("Limon all comments");
+      console.log(data.data);
+      setAllComments(data.data);
+    } else {
+      console.error("Error fetching user data:", response.statusText);
+    }
+  };
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:8000/api/auth/getUser/${userId}`,
+          {
+            cache: "no-store",
+          }
+        );
+        if (response.ok) {
+          const data = await response.json();
+          setPostUser(data.data); // Assuming the API returns the user object directly
+        } else {
+          console.error("Error fetching user data:", response.statusText);
+        }
+      } catch (error) {
+        console.error("Error fetching user:", error);
+      }
+    };
+
+    if (userId) {
+      fetchUser();
+    }
+    getComments();
+  }, [userId]);
+  console.log("gg");
+  console.log(userId);
+
   // Handle comment form submission
-  const handleCommentSubmit = (e: React.FormEvent) => {
+  const handleCommentSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Comment submitted:", comment);
 
-    // Here you would normally send the comment to the backend via API
+    const token = getCookie("token"); // Get token from cookies
+    const commentData = {
+      postId: _id,
+      description: comment,
+      isDeleted: false,
+    };
+    const res = await fetch(
+      `http://localhost:8000/api/comment/create-comment`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Optionally add token if needed for auth
+        },
+        body: JSON.stringify(commentData),
+      }
+    );
+
     setComment(""); // Clear the comment box after submitting
+    getComments();
+  };
+
+  // This is Vanilla JavaScript style to extract the token from document.cookie..
+  const getCookie = (name: string) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop()?.split(";").shift();
+  };
+
+  const handleLiketSubmit = async () => {
+    setlocalNumberOfLikes(localNumberOfLikes + 1);
+    const token = getCookie("token"); // Get token from cookies
+    const likeData = {};
+    const res = await fetch(
+      `http://localhost:8000/api/post/increase-like/${_id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Optionally add token if needed for auth
+        },
+        body: JSON.stringify(likeData),
+      }
+    );
   };
 
   return (
-    <div className="mb-2 rounded-md bg-default-100 p-4 relative">
-      {/* Premium Button */}
-      <Button
-        size="sm"
-        variant="solid"
-        className="absolute top-2 right-2 bg-yellow-500 text-white"
-      >
-        Premium
-      </Button>
+    <div className="relative p-4 mb-2 rounded-md bg-default-100">
+      {/* Premium Button in upper-right corner */}
 
-      {/* Card Header with loggedInUser's name */}
-      <div className="border-b border-default-200 pb-2">
+      {/* Card Header with post user information */}
+      <div className="pb-2 border-b border-default-200">
         <div className="flex items-center justify-between pb-4">
           <div className="flex items-center gap-3">
-            <Avatar alt={loggedInUser?.name} />
+            <Avatar alt={userId?.name} />
+            {/* <CldImage src={} alt={"Nai"} width={20} height={20}></CldImage> */}
             <div>
-              <p className="font-semibold">{loggedInUser?.name}</p>
-              <p className="text-xs text-gray-500">{loggedInUser?.email}</p>
+              <p className="font-semibold">{userId?.name}</p>
+              <p className="text-xs text-gray-500">{userId?.email}</p>
               <p className="text-sm text-gray-600">
                 Post category: {postCategory}
               </p>
@@ -66,11 +158,11 @@ export default function Post({ post }: IProps) {
         </div>
 
         {/* Post content */}
-        <div className="border-b border-default-200 py-4">
-          <div className="mb-4 flex items-start justify-between">
+        <div className="py-4 border-b border-default-200">
+          <div className="flex items-start justify-between mb-4">
             <div>
               <Link href={`/found-items/${_id}`}>
-                <h1 className="cursor-pointer text-2xl font-bold">
+                <h1 className="text-2xl font-bold cursor-pointer">
                   {postTitle}
                 </h1>
               </Link>
@@ -81,7 +173,7 @@ export default function Post({ post }: IProps) {
           <p className="mb-4">{description}</p>
 
           {/* Image URL (Image Gallery) */}
-          {imageUrl && (
+          {/* {imageUrl && (
             <div className="mb-4">
               <img
                 src={imageUrl}
@@ -89,7 +181,14 @@ export default function Post({ post }: IProps) {
                 className="w-full h-auto rounded-md"
               />
             </div>
-          )}
+          )} */}
+
+          <CldImage
+            src={imageUrl}
+            alt={imageUrl}
+            width={300}
+            height={300}
+          ></CldImage>
 
           {/* Like and Comment buttons */}
           <div className="flex items-center justify-between mt-4">
@@ -97,9 +196,10 @@ export default function Post({ post }: IProps) {
               variant="flat"
               size="sm"
               className="mr-2 text-pink-500 hover:text-pink-600"
+              onClick={() => handleLiketSubmit()}
             >
               <ThumbsUp size={16} className="mr-1" />
-              Like ({numberOfLikes || 0})
+              Like ({numberOfLikes + localNumberOfLikes || 0})
             </Button>
             <Button
               variant="flat"
@@ -112,6 +212,8 @@ export default function Post({ post }: IProps) {
             </Button>
           </div>
 
+          <Comment comments={allComments} />
+
           {/* Comment box */}
           {showCommentBox && (
             <form onSubmit={handleCommentSubmit} className="mt-4">
@@ -121,12 +223,12 @@ export default function Post({ post }: IProps) {
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
               />
-              <div className="mt-2 flex justify-end">
+              <div className="flex justify-end mt-2">
                 <Button
                   type="submit"
                   variant="solid"
                   size="sm"
-                  className="bg-blue-500 text-white"
+                  className="text-white bg-blue-500"
                 >
                   Post Comment
                 </Button>

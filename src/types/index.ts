@@ -37,6 +37,7 @@ export interface IUser {
   password?: string;
   phone: string;
   address?: string;
+  imageUrlID?: string;
   isDeleted?: boolean;
   createdAt?: Date;
   updatedAt?: Date;
@@ -112,4 +113,14 @@ export interface ISearchResult {
   description: string;
   thumbnail: string;
   id: string;
+}
+
+export interface IComment {
+  _id: string;
+  postId: string;
+  description: string;
+  isDeleted: boolean;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
 }

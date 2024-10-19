@@ -10,16 +10,19 @@ import FXInput from "@/src/components/form/FXInput";
 import { useUserRegistration } from "@/src/hooks/auth.hook";
 import registerValidationSchema from "@/src/schemas/register.schema";
 import { log } from "console";
+import { CldUploadWidget } from "next-cloudinary";
+import { useState } from "react";
 
 export default function RegisterPage() {
   const { mutate: handleUserRegistration, isPending } = useUserRegistration();
+  const [imageUrlID, setimageUrlID] = useState("");
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const userData = {
       ...data,
+      imageUrlID,
     };
     console.log(userData);
-
     handleUserRegistration(userData);
   };
 
@@ -32,6 +35,25 @@ export default function RegisterPage() {
       <h3 className="my-2 text-xl font-bold">Register with FoundX</h3>
       <p className="mb-4">Help Lost Items Find Their Way Home</p>
       <div className="w-[35%]">
+        <CldUploadWidget
+          uploadPreset="Papon_Images"
+          onSuccess={({ event, info }) => {
+            if (event === "success") {
+              setimageUrlID(info?.public_id);
+            }
+          }}
+        >
+          {({ open }) => {
+            return (
+              <button
+                className="w-full my-3 rounded-md bg-default-900 text-default"
+                onClick={() => open()}
+              >
+                Upload an Image
+              </button>
+            );
+          }}
+        </CldUploadWidget>
         <FXForm
           //! Only for development
           defaultValues={{}}
@@ -64,7 +86,7 @@ export default function RegisterPage() {
           </div>
 
           <Button
-            className="my-3 w-full rounded-md bg-default-900 text-default"
+            className="w-full my-3 rounded-md bg-default-900 text-default"
             size="lg"
             type="submit"
           >

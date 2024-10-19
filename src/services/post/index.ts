@@ -51,6 +51,7 @@ export const getMyPosts = async () => {
 
   try {
     const res = await fetch(`http://localhost:8000/api/post/user/${user._id}`, {
+      cache: "no-store",
       method: "GET",
       headers: {
         "Content-Type": "application/json",

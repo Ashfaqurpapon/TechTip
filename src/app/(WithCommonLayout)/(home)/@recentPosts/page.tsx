@@ -17,19 +17,19 @@ export default async function RecentPosts() {
       {posts?.length ? (
         posts?.map((post: IPost) => <Card key={post._id} post={post} />)
       ) : (
-        <div className="flex min-h-screen w-full items-center justify-center rounded-md bg-default-100">
+        <div className="flex items-center justify-center w-full min-h-screen rounded-md bg-default-100">
           <h1 className="text-4xl">No Post Found!</h1>
         </div>
       )}
     </>
     // <Container>
-    //   <div className="section-title my-8">
-    //     <h2 className="mb-2 text-center text-2xl">Recently Found Items</h2>
+    //   <div className="my-8 section-title">
+    //     <h2 className="mb-2 text-2xl text-center">Recently Found Items</h2>
     //     <p className="text-center">
     //       A list of items that have been recently found and reported.
     //     </p>
     //   </div>
-    //   <div className="my-8 grid justify-center gap-10 sm:grid-cols-1 md:grid-cols-3">
+    //   <div className="grid justify-center gap-10 my-8 sm:grid-cols-1 md:grid-cols-3">
     //     {/* Old Code */}
     //     {/* {posts.map((post) => (
     //       <p>{post.title}</p>

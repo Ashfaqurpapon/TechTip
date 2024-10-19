@@ -8,7 +8,9 @@ export const getRecentPosts = async () => {
   };
 
   //const res = await fetch(`${envConfig.baseApi}/post`, fetchOption);
-  const res = await fetch("http://localhost:8000/api/post");
+  const res = await fetch("http://localhost:8000/api/post", {
+    cache: "no-store",
+  });
 
   // return res.json();
   //console.log("Limon recent post");
