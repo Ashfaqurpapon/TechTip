@@ -38,8 +38,13 @@ export default function RegisterPage() {
         <CldUploadWidget
           uploadPreset="Papon_Images"
           onSuccess={({ event, info }) => {
-            if (event === "success") {
-              setimageUrlID(info?.public_id);
+            //
+            if (
+              typeof info === "object" &&
+              info !== null &&
+              "public_id" in info
+            ) {
+              setimageUrlID(info.public_id);
             }
           }}
         >

@@ -33,7 +33,8 @@ export default function Sidebarfollowing({ user }: SidebarfollowingProps) {
     try {
       const token = getCookie("token");
       const res = await fetch(
-        `http://localhost:8000/api/profile/${user._id}/followers`,
+        `http://localhost:8000/api/follower/get-otherUser-followers/${user._id}`,
+        // `http://localhost:8000/api/profile/${user._id}/followers`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -57,7 +58,8 @@ export default function Sidebarfollowing({ user }: SidebarfollowingProps) {
     try {
       const token = getCookie("token"); // Retrieve token from cookies
       const res = await fetch(
-        `http://localhost:8000/api/profile/${user._id}/following`,
+        // `http://localhost:8000/api/profile/${user._id}/following`,
+        `http://localhost:8000/api/follower/get-otherUser-following/${user._id}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -75,9 +77,58 @@ export default function Sidebarfollowing({ user }: SidebarfollowingProps) {
     setLoading(false);
   };
 
-  const toggleFollow = () => {
+  const toggleFollow = async () => {
     // Logic to follow/unfollow user
     setIsFollowing(!isFollowing); // Toggle the follow state
+
+    if (isFollowing == false) {
+      await handlefollowUser(user?._id ?? "");
+    } else {
+      await handleUnfollow(user?._id ?? "");
+    }
+  };
+
+  const getCookie = (name: string) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop()?.split(";").shift();
+  };
+
+  const handlefollowUser = async (userId: string) => {
+    const token = getCookie("token"); // Get token from cookies
+    const likeData = {};
+    const res = await fetch(
+      `http://localhost:8000/api/follower/add-follower/${userId}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Optionally add token if needed for auth
+        },
+        body: JSON.stringify(likeData),
+      }
+    );
+
+    console.log("Limon follow");
+    console.log(res);
+  };
+
+  const handleUnfollow = async (userId: string) => {
+    const token = getCookie("token"); // Get token from cookies
+    const likeData = {};
+    const res = await fetch(
+      `http://localhost:8000/api/follower/remove-follower/${userId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Optionally add token if needed for auth
+        },
+        body: JSON.stringify(likeData),
+      }
+    );
+    console.log("Limon unfollow");
+    console.log(res);
   };
 
   if (!user) {
@@ -86,11 +137,11 @@ export default function Sidebarfollowing({ user }: SidebarfollowingProps) {
 
   return (
     <div>
-      <div className="relative rounded-xl bg-default-100 p-2">
+      <div className="relative p-2 rounded-xl bg-default-100">
         <div className="h-[330px] w-full rounded-md"></div>
-        <div className="my-3 relative">
+        <div className="relative my-3">
           <h1 className="text-2xl font-semibold">{user?.name}</h1>
-          <p className="break-words text-sm">{user?.email}</p>
+          <p className="text-sm break-words">{user?.email}</p>
 
           {/* Follow Button */}
           <Button
@@ -104,7 +155,7 @@ export default function Sidebarfollowing({ user }: SidebarfollowingProps) {
       </div>
 
       {/* Followers and Following Buttons */}
-      <div className="mt-3 space-y-2 rounded-xl bg-default-100 p-2">
+      <div className="p-2 mt-3 space-y-2 rounded-xl bg-default-100">
         <div className="flex justify-between">
           <Button onClick={fetchFollowers} className="w-full" color="primary">
             Followers

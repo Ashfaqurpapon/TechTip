@@ -11,8 +11,15 @@ export default function Page() {
       <CldUploadWidget
         uploadPreset="Papon_Images"
         onSuccess={({ event, info }) => {
-          if (event === "success") {
-            setPublicId(info?.public_id);
+          // if (event === "success") {
+          //   setPublicId(info?.public_id);
+          // }
+          if (
+            typeof info === "object" &&
+            info !== null &&
+            "public_id" in info
+          ) {
+            setPublicId(info.public_id);
           }
         }}
       >

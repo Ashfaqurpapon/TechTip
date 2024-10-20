@@ -44,7 +44,7 @@ export default function PremiumModal() {
           </Button>
         ))}
       </div>
-      <Modal backdrop={backdrop} isOpen={isOpen} onClose={onClose}>
+      <Modal backdrop={"blur"} isOpen={isOpen} onClose={onClose}>
         <ModalContent>
           {(onClose: any) => (
             <>

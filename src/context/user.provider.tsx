@@ -28,7 +28,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
     const user = await getCurrentUser();
     // const { data } = await axiosInstance.get(`/auth/getUser/${decodedToken.userId}`);
 
-    setUser(user);
+    setUser(user as IUser);
     setIsLoading(false);
   };
 

@@ -29,7 +29,7 @@ const Sidebar = () => {
     try {
       const token = getCookie("token");
       const res = await fetch(
-        `http://localhost:8000/api/profile/${user._id}/followers`,
+        `http://localhost:8000/api/follower/get-followers`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -38,7 +38,19 @@ const Sidebar = () => {
         }
       );
       const data = await res.json();
-      setFollowers(data?.followers || []);
+
+      console.log("Limon all followers");
+      const rslt = data.data.followers.followers;
+      const userArray: IUser[] = [];
+
+      for (let i = 0; i < rslt.length; i++) {
+        const pp = await fetchUser(rslt[i]);
+        console.log("hjbcsjhabjhcs");
+        console.log(pp);
+        userArray.push(pp);
+      }
+
+      setFollowers(userArray || []);
       setShowFollowers(!showFollowers); // Toggle visibility of followers list
     } catch (error) {
       console.error("Error fetching followers:", error);
@@ -52,7 +64,7 @@ const Sidebar = () => {
     try {
       const token = getCookie("token");
       const res = await fetch(
-        `http://localhost:8000/api/profile/${user._id}/following`,
+        `http://localhost:8000/api/follower/get-following`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -61,12 +73,45 @@ const Sidebar = () => {
         }
       );
       const data = await res.json();
-      setFollowing(data?.following || []);
+
+      console.log("Limon owwwww");
+      const rslt = data.data.following.following;
+      console.log(rslt);
+      const userArray: IUser[] = [];
+
+      for (let i = 0; i < rslt.length; i++) {
+        const pp = await fetchUser(rslt[i]);
+        console.log("hjbcsjhabjhcs");
+        console.log(pp);
+        userArray.push(pp);
+      }
+
+      setFollowing(userArray || []);
       setShowFollowing(!showFollowing); // Toggle visibility of following list
     } catch (error) {
       console.error("Error fetching following:", error);
     }
     setLoading(false);
+  };
+
+  const fetchUser = async (userId: string) => {
+    console.log("fetched called");
+    try {
+      const response = await fetch(
+        `http://localhost:8000/api/auth/getUser/${userId}`,
+        {
+          cache: "no-store",
+        }
+      );
+      if (response.ok) {
+        const data = await response.json();
+        return data.data;
+      } else {
+        console.error("Error fetching user data:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error fetching user:", error);
+    }
   };
 
   return (
