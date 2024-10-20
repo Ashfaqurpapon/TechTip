@@ -9,6 +9,7 @@ import { useUser } from "@/src/context/user.provider";
 import { IComment, IPost, IUser } from "@/src/types";
 import Comment from "./Comment";
 import { CldImage } from "next-cloudinary";
+import envConfig from "@/src/config/envConfig";
 
 interface IProps {
   post: IPost;
@@ -38,7 +39,7 @@ export default function Post({ post }: IProps) {
   const getComments = async () => {
     const token = getCookie("token");
     const response = await fetch(
-      `http://localhost:8000/api/comment/comment/${_id}`,
+      `${envConfig.baseApi}/comment/comment/${_id}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -60,7 +61,7 @@ export default function Post({ post }: IProps) {
     const fetchUser = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8000/api/auth/getUser/${userId}`,
+          `${envConfig.baseApi}/auth/getUser/${userId}`,
           {
             cache: "no-store",
           }
@@ -93,17 +94,14 @@ export default function Post({ post }: IProps) {
       description: comment,
       isDeleted: false,
     };
-    const res = await fetch(
-      `http://localhost:8000/api/comment/create-comment`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Optionally add token if needed for auth
-        },
-        body: JSON.stringify(commentData),
-      }
-    );
+    const res = await fetch(`${envConfig.baseApi}/comment/create-comment`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`, // Optionally add token if needed for auth
+      },
+      body: JSON.stringify(commentData),
+    });
 
     setComment(""); // Clear the comment box after submitting
     getComments();
@@ -120,17 +118,14 @@ export default function Post({ post }: IProps) {
     setlocalNumberOfLikes(localNumberOfLikes + 1);
     const token = getCookie("token"); // Get token from cookies
     const likeData = {};
-    const res = await fetch(
-      `http://localhost:8000/api/post/increase-like/${_id}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Optionally add token if needed for auth
-        },
-        body: JSON.stringify(likeData),
-      }
-    );
+    const res = await fetch(`${envConfig.baseApi}/post/increase-like/${_id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`, // Optionally add token if needed for auth
+      },
+      body: JSON.stringify(likeData),
+    });
   };
   const { user } = useUser();
 

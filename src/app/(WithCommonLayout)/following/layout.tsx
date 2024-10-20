@@ -4,6 +4,7 @@ import { ReactNode, useEffect, useState } from "react";
 import Container from "@/src/components/UI/Container";
 import Sidebarfollowing from "./Sidebarfollowing";
 import { useSearchParams } from "next/navigation";
+import envConfig from "@/src/config/envConfig";
 
 export default function Layout({ children }: { children: ReactNode }) {
   const searchParams = useSearchParams();
@@ -17,7 +18,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       try {
         if (userId) {
           const response = await fetch(
-            `http://localhost:8000/api/auth/getUser/${userId}`,
+            `${envConfig.baseApi}/auth/getUser/${userId}`,
             {
               cache: "no-store",
             }

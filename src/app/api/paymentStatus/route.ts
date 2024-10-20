@@ -1,4 +1,5 @@
 // Redirecting the user after handling the POST request
+import envConfig from "@/src/config/envConfig";
 import { NextResponse } from "next/server";
 
 export const POST = async (request: any) => {
@@ -19,7 +20,7 @@ const makePremumUser = async () => {
   const commentData = {
     isPremium: "true",
   };
-  const res = await fetch(`http://localhost:8000/api/auth/updateUser`, {
+  const res = await fetch(`${envConfig.baseApi}/auth/updateUser`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",

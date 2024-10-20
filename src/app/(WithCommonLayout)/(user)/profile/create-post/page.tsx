@@ -25,6 +25,7 @@ import { useCreatePost } from "@/src/hooks/post.hook";
 import Loading from "@/src/components/UI/Loading";
 import generateDescription from "@/src/services/ImageDescription";
 import { CldUploadWidget } from "next-cloudinary";
+import envConfig from "@/src/config/envConfig";
 
 // const cityOptions = allDistict()
 //   .sort()
@@ -95,7 +96,7 @@ export default function CreatePost() {
     console.log(postData);
 
     const token = getCookie("token");
-    const res = await fetch(`http://localhost:8000/api/post/create-post`, {
+    const res = await fetch(`${envConfig.baseApi}/post/create-post`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

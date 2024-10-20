@@ -8,7 +8,7 @@ export const getRecentPosts = async () => {
   };
 
   //const res = await fetch(`${envConfig.baseApi}/post`, fetchOption);
-  const res = await fetch("http://localhost:8000/api/post", {
+  const res = await fetch(`${envConfig.baseApi}/post`, {
     cache: "no-store",
   });
 

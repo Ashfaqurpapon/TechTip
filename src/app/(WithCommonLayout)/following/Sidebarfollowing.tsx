@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { Avatar } from "@nextui-org/avatar";
 import { getCookie } from "cookies-next";
+import envConfig from "@/src/config/envConfig";
 
 interface IUser {
   _id: string;
@@ -33,7 +34,7 @@ export default function Sidebarfollowing({ user }: SidebarfollowingProps) {
     try {
       const token = getCookie("token");
       const res = await fetch(
-        `http://localhost:8000/api/follower/get-otherUser-followers/${user._id}`,
+        `${envConfig.baseApi}/follower/get-otherUser-followers/${user._id}`,
         // `http://localhost:8000/api/profile/${user._id}/followers`,
         {
           headers: {
@@ -59,7 +60,7 @@ export default function Sidebarfollowing({ user }: SidebarfollowingProps) {
       const token = getCookie("token"); // Retrieve token from cookies
       const res = await fetch(
         // `http://localhost:8000/api/profile/${user._id}/following`,
-        `http://localhost:8000/api/follower/get-otherUser-following/${user._id}`,
+        `${envConfig.baseApi}/follower/get-otherUser-following/${user._id}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -98,7 +99,7 @@ export default function Sidebarfollowing({ user }: SidebarfollowingProps) {
     const token = getCookie("token"); // Get token from cookies
     const likeData = {};
     const res = await fetch(
-      `http://localhost:8000/api/follower/add-follower/${userId}`,
+      `${envConfig.baseApi}/follower/add-follower/${userId}`,
       {
         method: "POST",
         headers: {
@@ -117,7 +118,7 @@ export default function Sidebarfollowing({ user }: SidebarfollowingProps) {
     const token = getCookie("token"); // Get token from cookies
     const likeData = {};
     const res = await fetch(
-      `http://localhost:8000/api/follower/remove-follower/${userId}`,
+      `${envConfig.baseApi}/follower/remove-follower/${userId}`,
       {
         method: "DELETE",
         headers: {
