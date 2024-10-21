@@ -150,8 +150,8 @@ export default function Post({ post }: IProps) {
             <Avatar alt={user?.name} />
             {/* <CldImage src={} alt={"Nai"} width={20} height={20}></CldImage> */}
             <div>
-              <p className="font-semibold">{user?.name}</p>
-              <p className="text-xs text-gray-500">{user?.email}</p>
+              <p className="font-semibold">{postUser?.name}</p>
+              <p className="text-xs text-gray-500">{postUser?.email}</p>
               <p className="text-sm text-gray-600">
                 Post category: {postCategory}
               </p>

@@ -11,7 +11,7 @@ export const POST = async (request: any) => {
   // Process the payment data (e.g., validate and store in the database)
 
   // After handling, redirect the user to a success page
-  return NextResponse.redirect("http://localhost:3000/paymentStatus");
+  return NextResponse.redirect("/paymentStatus");
   // return NextResponse.json({ message: "Payment processed successfully!" });
 };
 
@@ -28,9 +28,6 @@ const makePremumUser = async () => {
     },
     body: JSON.stringify(commentData),
   });
-
-  console.log("Limon premum");
-  console.log(res);
 };
 
 // This is Vanilla JavaScript style to extract the token from document.cookie..
