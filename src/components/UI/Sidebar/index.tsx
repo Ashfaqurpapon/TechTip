@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 "use client";
 import { Button } from "@nextui-org/button";
 import Link from "next/link";
@@ -7,6 +8,7 @@ import { Avatar } from "@nextui-org/avatar";
 import { getCookie } from "cookies-next";
 
 import { useUser } from "@/src/context/user.provider";
+import envConfig from "@/src/config/envConfig";
 
 interface IUser {
   _id: string;
@@ -28,32 +30,27 @@ const Sidebar = () => {
     setLoading(true);
     try {
       const token = getCookie("token");
-      const res = await fetch(
-        `http://localhost:8000/api/follower/get-followers`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const res = await fetch(`${envConfig.baseApi}/follower/get-followers`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const data = await res.json();
 
-      console.log("Limon all followers");
       const rslt = data.data.followers.followers;
       const userArray: IUser[] = [];
 
       for (let i = 0; i < rslt.length; i++) {
         const pp = await fetchUser(rslt[i]);
-        console.log("hjbcsjhabjhcs");
-        console.log(pp);
+
         userArray.push(pp);
       }
 
       setFollowers(userArray || []);
       setShowFollowers(!showFollowers); // Toggle visibility of followers list
     } catch (error) {
-      console.error("Error fetching followers:", error);
+      throw new Error(`Error fetching Followers: ${error}`);
     }
     setLoading(false);
   };
@@ -63,54 +60,50 @@ const Sidebar = () => {
     setLoading(true);
     try {
       const token = getCookie("token");
-      const res = await fetch(
-        `http://localhost:8000/api/follower/get-following`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const res = await fetch(`${envConfig.baseApi}/follower/get-following`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const data = await res.json();
 
-      console.log("Limon owwwww");
       const rslt = data.data.following.following;
-      console.log(rslt);
+
       const userArray: IUser[] = [];
 
       for (let i = 0; i < rslt.length; i++) {
         const pp = await fetchUser(rslt[i]);
-        console.log("hjbcsjhabjhcs");
-        console.log(pp);
+
         userArray.push(pp);
       }
 
       setFollowing(userArray || []);
       setShowFollowing(!showFollowing); // Toggle visibility of following list
     } catch (error) {
-      console.error("Error fetching following:", error);
+      throw new Error(`Error fetching Followers: ${error}`);
     }
     setLoading(false);
   };
 
   const fetchUser = async (userId: string) => {
-    console.log("fetched called");
     try {
       const response = await fetch(
-        `http://localhost:8000/api/auth/getUser/${userId}`,
+        `${envConfig.baseApi}/auth/getUser/${userId}`,
         {
           cache: "no-store",
         }
       );
+
       if (response.ok) {
         const data = await response.json();
+
         return data.data;
       } else {
-        console.error("Error fetching user data:", response.statusText);
+        throw new Error(`Error fetching user data: ${response.statusText}`);
       }
     } catch (error) {
-      console.error("Error fetching user:", error);
+      throw new Error(`Error fetching Followers: ${error}`);
     }
   };
 
@@ -119,10 +112,10 @@ const Sidebar = () => {
       <div className="p-2 rounded-xl bg-default-100">
         <div className="h-[330px] w-full rounded-md">
           <CldImage
-            src={user?.imageUrlID ?? ""}
             alt={user?.imageUrlID ?? ""}
-            width={300}
             height={300}
+            src={user?.imageUrlID ?? ""}
+            width={300}
           />
         </div>
         <div className="my-3">
@@ -141,10 +134,10 @@ const Sidebar = () => {
 
         {/* Followers and Following Buttons */}
         <div className="mt-3 space-y-2">
-          <Button onClick={fetchFollowers} className="w-full" color="primary">
+          <Button className="w-full" color="primary" onClick={fetchFollowers}>
             Followers
           </Button>
-          <Button onClick={fetchFollowing} className="w-full" color="primary">
+          <Button className="w-full" color="primary" onClick={fetchFollowing}>
             Following
           </Button>
         </div>

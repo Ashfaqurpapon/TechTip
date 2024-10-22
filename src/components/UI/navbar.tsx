@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 "use client";
 
 import {
@@ -24,7 +25,7 @@ import { useUser } from "@/src/context/user.provider";
 import { Logo } from "@/src/assets/icons";
 
 export const Navbar = () => {
-  const { user, isLoading } = useUser();
+  const { user } = useUser();
   const router = useRouter();
 
   return (
@@ -86,8 +87,8 @@ export const Navbar = () => {
                   index === 2
                     ? "primary"
                     : index === siteConfig.navMenuItems.length - 1
-                    ? "danger"
-                    : "foreground"
+                      ? "danger"
+                      : "foreground"
                 }
                 href="#"
                 size="lg"

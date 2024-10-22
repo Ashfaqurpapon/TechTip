@@ -10,7 +10,7 @@ export default function Page() {
       <h1> This is About page </h1>
       <CldUploadWidget
         uploadPreset="Papon_Images"
-        onSuccess={({ event, info }) => {
+        onSuccess={({ info }) => {
           // if (event === "success") {
           //   setPublicId(info?.public_id);
           // }
@@ -29,12 +29,7 @@ export default function Page() {
       </CldUploadWidget>
 
       {publicId && (
-        <CldImage
-          src={publicId}
-          alt={publicId}
-          width={300}
-          height={300}
-        ></CldImage>
+        <CldImage alt={publicId} height={300} src={publicId} width={300} />
       )}
     </div>
   );

@@ -1,5 +1,6 @@
-import envConfig from "@/src/config/envConfig";
 import axios from "axios";
+
+import envConfig from "@/src/config/envConfig";
 
 export const initiatePayment = async (paymentData: any) => {
   try {
@@ -7,7 +8,7 @@ export const initiatePayment = async (paymentData: any) => {
       store_id: envConfig.STORE_ID,
       signature_key: envConfig.SIGNETURE_KEY,
       tran_id: paymentData.transactionId,
-      success_url: `${envConfig.baseApi}/paymentStatus`,
+      success_url: `http://localhost:8000/api/payment/make-payment/${paymentData.customerUserId}`,
       fail_url: `${envConfig.baseApi}/v1/payment/confirmation?status=failed`,
       cancel_url: "http://localhost:5173/",
       amount: paymentData.totalPrice,

@@ -1,16 +1,18 @@
+/* eslint-disable prettier/prettier */
 "use server";
 
 import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
 import { jwtDecode } from "jwt-decode";
 
-import axiosInstance from "@/src/lib/AxiosInstance";
 import { initiatePayment } from "../PaymentService";
+
+import axiosInstance from "@/src/lib/AxiosInstance";
 
 export const registerUser = async (userData: FieldValues) => {
   try {
     const { data } = await axiosInstance.post("/auth/signup", userData);
-    //console.log(data);
+
     if (data.success) {
       cookies().set("token", data?.token);
     }
@@ -23,7 +25,6 @@ export const registerUser = async (userData: FieldValues) => {
 
 export const makePayment = async (userData: FieldValues) => {
   try {
-    console.log("Limon initiatePaymentCon is called");
     const transactionId = `TXN-${Date.now()}`;
     const paymentData = {
       transactionId,
@@ -32,11 +33,10 @@ export const makePayment = async (userData: FieldValues) => {
       customerEmail: "accacac@gmail.com",
       customerPhone: "1222",
       customerAddress: "gtgtgt47",
+      customerUserId: userData.userId,
     };
 
     const paymentSession = await initiatePayment(paymentData);
-
-    console.log(paymentSession);
 
     return paymentSession;
   } catch (error: any) {
@@ -47,7 +47,7 @@ export const makePayment = async (userData: FieldValues) => {
 export const loginUser = async (userData: FieldValues) => {
   try {
     const { data } = await axiosInstance.post("/auth/signin", userData);
-    //console.log(data?.data?.accessToken);
+
     if (data.success) {
       cookies().set("token", data?.token);
     }
@@ -79,6 +79,7 @@ export const getCurrentUser = async () => {
       email: data.data.email,
       phone: data.data.phone,
       imageUrlID: data.data.imageUrlID,
+      isPremium: data.data.isPremium,
       role: decodedToken.role,
       // status: decodedToken.status,
       // profilePhoto: decodedToken.profilePhoto,

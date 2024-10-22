@@ -3,7 +3,6 @@ import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 
 import { loginUser, registerUser } from "../services/AuthService";
-import { NextResponse } from "next/server";
 
 export const useUserRegistration = () => {
   return useMutation<any, Error, FieldValues>({
@@ -23,6 +22,7 @@ export const useMakePayment = () => {
     mutationKey: ["USER_MAKE_PAYMENT"],
     mutationFn: async (userData) => {
       const result = await registerUser(userData);
+
       return result;
     },
     onSuccess: (result) => {

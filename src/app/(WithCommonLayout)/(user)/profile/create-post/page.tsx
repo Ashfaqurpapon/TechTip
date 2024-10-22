@@ -1,30 +1,20 @@
+/* eslint-disable prettier/prettier */
 "use client";
-
+import { CldUploadWidget } from "next-cloudinary";
+import { useRouter } from "next/navigation";
 import { Divider } from "@nextui-org/divider";
 import { Button } from "@nextui-org/button";
 import {
   FieldValues,
   FormProvider,
   SubmitHandler,
-  useFieldArray,
   useForm,
 } from "react-hook-form";
-import { allDistict } from "@bangladeshi/bangladesh-address";
-import { ChangeEvent, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 import FXInput from "@/src/components/form/FXInput";
-import FXDatePicker from "@/src/components/form/FXDatePicker";
-import dateToISO from "@/src/utils/dateToISO";
-import FXSelect from "@/src/components/form/FXSelect";
-import { useGetCategories } from "@/src/hooks/categoreis.hook";
 import FXTextarea from "@/src/components/form/FXTextArea";
-import { AddIcon, TrashIcon } from "@/src/assets/icons";
 import { useUser } from "@/src/context/user.provider";
-import { useCreatePost } from "@/src/hooks/post.hook";
-import Loading from "@/src/components/UI/Loading";
-import generateDescription from "@/src/services/ImageDescription";
-import { CldUploadWidget } from "next-cloudinary";
 import envConfig from "@/src/config/envConfig";
 
 // const cityOptions = allDistict()
@@ -39,8 +29,7 @@ import envConfig from "@/src/config/envConfig";
 export default function CreatePost() {
   // const [imageFiles, setImageFiles] = useState<File[] | []>([]);
   // const [imagePreviews, setImagePreviews] = useState<string[] | []>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
+
   const [imageUrlID, setimageUrlID] = useState("");
 
   const router = useRouter();
@@ -59,8 +48,6 @@ export default function CreatePost() {
   //   isSuccess: categorySuccess,
   // } = useGetCategories();
 
-  let categoryOption: { key: string; label: string }[] = [];
-
   // if (categoriesData?.data && !categoryLoading) {
   //   categoryOption = categoriesData.data
   //     .sort()
@@ -72,17 +59,16 @@ export default function CreatePost() {
 
   const methods = useForm();
 
-  const { control, handleSubmit } = methods;
+  const { handleSubmit } = methods;
 
   const getCookie = (name: string) => {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
+
     if (parts.length === 2) return parts.pop()?.split(";").shift();
   };
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const formData = new FormData();
-
     const postData = {
       ...data,
       imageUrl: imageUrlID,
@@ -92,11 +78,9 @@ export default function CreatePost() {
       // user: user!._id,
     };
 
-    console.log("Limon post");
-    console.log(postData);
-
     const token = getCookie("token");
-    const res = await fetch(`${envConfig.baseApi}/post/create-post`, {
+
+    await fetch(`${envConfig.baseApi}/post/create-post`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -106,10 +90,6 @@ export default function CreatePost() {
     });
 
     router.push("/profile");
-
-    console.log("Limon result");
-    console.log(res);
-
     // formData.append("data", JSON.stringify(postData));
 
     // for (let image of imageFiles) {
@@ -151,7 +131,7 @@ export default function CreatePost() {
         <Divider className="mt-3 mb-5" />
         <CldUploadWidget
           uploadPreset="Papon_Images"
-          onSuccess={({ event, info }) => {
+          onSuccess={({ info }) => {
             //
             if (
               typeof info === "object" &&

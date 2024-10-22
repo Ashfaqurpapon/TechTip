@@ -44,7 +44,7 @@ export default function FXModal({
       </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
-          {(onClose) => (
+          {() => (
             <>
               <ModalHeader className="flex flex-col gap-1">{title}</ModalHeader>
               <ModalBody>{children}</ModalBody>

@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 "use server";
 
 import axiosInstance from "@/src/lib/AxiosInstance";

@@ -1,15 +1,15 @@
+/* eslint-disable prettier/prettier */
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Avatar } from "@nextui-org/avatar";
-import { Heart, MessageCircle, ThumbsUp } from "lucide-react";
+import { MessageCircle, ThumbsUp } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@nextui-org/button";
-
-import { useUser } from "@/src/context/user.provider";
-import { IComment, IPost, IUser } from "@/src/types";
-
 import { CldImage } from "next-cloudinary";
+
 import Comment from "../Comment";
+
+import { IComment, IPost, IUser } from "@/src/types";
 import envConfig from "@/src/config/envConfig";
 
 interface IProps {
@@ -28,10 +28,10 @@ export default function Post({ post }: IProps) {
     postCategory,
     numberOfLikes,
   } = post || {};
-  const { name, email } = (userId as IUser) || {};
+  const {} = (userId as IUser) || {};
 
   // State to toggle comment box
-  const [postUser, setPostUser] = useState<IUser | null>(null);
+  // const [postUser, setPostUser] = useState<IUser | null>(null);
   const [localNumberOfLikes, setlocalNumberOfLikes] = useState<number>(0);
   const [allComments, setAllComments] = useState<IComment[]>([]);
   const [showCommentBox, setShowCommentBox] = useState(false);
@@ -51,46 +51,44 @@ export default function Post({ post }: IProps) {
 
     if (response.ok) {
       const data = await response.json();
-      console.log("Limon all comments");
-      console.log(data.data);
+
       setAllComments(data.data);
     } else {
-      console.error("Error fetching user data:", response.statusText);
+      throw new Error(`Error fetching user data: ${response.statusText}`);
     }
   };
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await fetch(
-          `${envConfig.baseApi}/auth/getUser/${userId}`,
-          {
-            cache: "no-store",
-          }
-        );
-        if (response.ok) {
-          const data = await response.json();
-          setPostUser(data.data); // Assuming the API returns the user object directly
-        } else {
-          console.error("Error fetching user data:", response.statusText);
-        }
-      } catch (error) {
-        console.error("Error fetching user:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     try {
+  //       const response = await fetch(
+  //         `${envConfig.baseApi}/auth/getUser/${userId}`,
+  //         {
+  //           cache: "no-store",
+  //         }
+  //       );
 
-    if (userId) {
-      fetchUser();
-    }
-    getComments();
-  }, [userId]);
-  console.log("gg");
-  console.log(userId);
+  //       if (response.ok) {
+  //         const data = await response.json();
+
+  //         setPostUser(data.data); // Assuming the API returns the user object directly
+  //       } else {
+  //         console.error("Error fetching user data:", response.statusText);
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching user:", error);
+  //     }
+  //   };
+
+  //   if (userId) {
+  //     fetchUser();
+  //   }
+  //   getComments();
+  // }, [userId]);
 
   // Handle comment form submission
   const handleCommentSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Comment submitted:", comment);
 
     const token = getCookie("token"); // Get token from cookies
     const commentData = {
@@ -107,6 +105,9 @@ export default function Post({ post }: IProps) {
       body: JSON.stringify(commentData),
     });
 
+    // eslint-disable-next-line no-console
+    console.log(res);
+
     setComment(""); // Clear the comment box after submitting
     getComments();
   };
@@ -115,6 +116,7 @@ export default function Post({ post }: IProps) {
   const getCookie = (name: string) => {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
+
     if (parts.length === 2) return parts.pop()?.split(";").shift();
   };
 
@@ -130,12 +132,15 @@ export default function Post({ post }: IProps) {
       },
       body: JSON.stringify(likeData),
     });
+
+    // eslint-disable-next-line no-console
+    console.log(res);
   };
 
   return (
     <div className="relative p-4 mb-2 rounded-md bg-default-100">
       {/* Premium Button in upper-right corner */}
-      <Link href={`/following?userId=${userId}`} passHref></Link>
+      <Link passHref href={`/following?userId=${userId}`} />
       {/* Card Header with post user information */}
       <div className="pb-2 border-b border-default-200">
         <div className="flex items-center justify-between pb-4">
@@ -178,31 +183,26 @@ export default function Post({ post }: IProps) {
             </div>
           )} */}
 
-          <CldImage
-            src={imageUrl}
-            alt={imageUrl}
-            width={300}
-            height={300}
-          ></CldImage>
+          <CldImage alt={imageUrl} height={300} src={imageUrl} width={300} />
 
           {/* Like and Comment buttons */}
           <div className="flex items-center justify-between mt-4">
             <Button
-              variant="flat"
-              size="sm"
               className="mr-2 text-pink-500 hover:text-pink-600"
+              size="sm"
+              variant="flat"
               onClick={() => handleLiketSubmit()}
             >
-              <ThumbsUp size={16} className="mr-1" />
+              <ThumbsUp className="mr-1" size={16} />
               Like ({numberOfLikes + localNumberOfLikes || 0})
             </Button>
             <Button
-              variant="flat"
-              size="sm"
               className="mr-2 text-blue-500 hover:text-blue-600"
+              size="sm"
+              variant="flat"
               onClick={() => setShowCommentBox(!showCommentBox)}
             >
-              <MessageCircle size={16} className="mr-1" />
+              <MessageCircle className="mr-1" size={16} />
               Comment
             </Button>
           </div>
@@ -211,7 +211,7 @@ export default function Post({ post }: IProps) {
 
           {/* Comment box */}
           {showCommentBox && (
-            <form onSubmit={handleCommentSubmit} className="mt-4">
+            <form className="mt-4" onSubmit={handleCommentSubmit}>
               <textarea
                 className="w-full p-2 border border-gray-300 rounded-md"
                 placeholder="Write a comment..."
@@ -220,10 +220,10 @@ export default function Post({ post }: IProps) {
               />
               <div className="flex justify-end mt-2">
                 <Button
+                  className="text-white bg-blue-500"
+                  size="sm"
                   type="submit"
                   variant="solid"
-                  size="sm"
-                  className="text-white bg-blue-500"
                 >
                   Post Comment
                 </Button>

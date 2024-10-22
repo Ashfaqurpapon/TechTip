@@ -1,5 +1,6 @@
-import { IComment } from "@/src/types";
 import React from "react";
+
+import { IComment } from "@/src/types";
 
 // Define the type for the props
 interface CommentProps {

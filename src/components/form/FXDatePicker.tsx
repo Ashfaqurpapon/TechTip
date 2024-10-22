@@ -13,7 +13,7 @@ export default function FXDatePicker({
   return (
     <Controller
       name={name}
-      render={({ field: { value, ...fields } }) => (
+      render={({ field: { ...fields } }) => (
         <DatePicker
           className="min-w-full sm:min-w-[225px]"
           label={label}

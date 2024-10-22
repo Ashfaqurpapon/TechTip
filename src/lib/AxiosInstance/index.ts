@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import axios from "axios";
 import { cookies } from "next/headers";
 
@@ -16,6 +17,7 @@ axiosInstance.interceptors.request.use(
     if (accessToken) {
       config.headers.Authorization = accessToken;
     }
+
     return config;
   },
   function (error) {

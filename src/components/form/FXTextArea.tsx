@@ -14,7 +14,7 @@ export default function FXTextarea({
 }: IProps) {
   const {
     register,
-    formState: { errors },
+    formState: {},
   } = useFormContext();
 
   const currentValue = useWatch({ name });
@@ -24,8 +24,8 @@ export default function FXTextarea({
       {...register(name)}
       label={label}
       minRows={6}
-      variant={variant}
       value={currentValue || ""}
+      variant={variant}
     />
   );
 }

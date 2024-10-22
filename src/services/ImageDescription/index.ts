@@ -8,8 +8,6 @@ const generateDescription = async (imageURL: string, prompt: string) => {
     .then((res) => res.arrayBuffer())
     .then((arrayBuffer) => Base64.fromByteArray(new Uint8Array(arrayBuffer)));
 
-  console.log("Image string", imageBase64);
-
   const contents = [
     {
       role: "user",

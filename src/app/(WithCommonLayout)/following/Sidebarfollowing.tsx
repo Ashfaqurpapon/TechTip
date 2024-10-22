@@ -1,9 +1,11 @@
+/* eslint-disable react/jsx-sort-props */
+/* eslint-disable prettier/prettier */
 "use client";
+
 import { Button } from "@nextui-org/button";
-import Link from "next/link";
 import { useState } from "react";
 import { Avatar } from "@nextui-org/avatar";
-import { getCookie } from "cookies-next";
+
 import envConfig from "@/src/config/envConfig";
 
 interface IUser {
@@ -45,10 +47,11 @@ export default function Sidebarfollowing({ user }: SidebarfollowingProps) {
       );
 
       const data = await res.json();
+
       setFollowers(data?.followers || []);
       setShowFollowers(!showFollowers); // Toggle the followers list
     } catch (error) {
-      console.error("Error fetching followers:", error);
+      throw new Error(`Error fetching followers: ${error}`);
     }
     setLoading(false);
   };
@@ -70,10 +73,11 @@ export default function Sidebarfollowing({ user }: SidebarfollowingProps) {
       );
 
       const data = await res.json();
+
       setFollowing(data?.following || []);
       setShowFollowing(!showFollowing); // Toggle the following list
     } catch (error) {
-      console.error("Error fetching following:", error);
+      throw new Error(`Error fetching followers: ${error}`);
     }
     setLoading(false);
   };
@@ -92,6 +96,7 @@ export default function Sidebarfollowing({ user }: SidebarfollowingProps) {
   const getCookie = (name: string) => {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
+
     if (parts.length === 2) return parts.pop()?.split(";").shift();
   };
 
@@ -110,7 +115,7 @@ export default function Sidebarfollowing({ user }: SidebarfollowingProps) {
       }
     );
 
-    console.log("Limon follow");
+    // eslint-disable-next-line no-console
     console.log(res);
   };
 
@@ -128,7 +133,8 @@ export default function Sidebarfollowing({ user }: SidebarfollowingProps) {
         body: JSON.stringify(likeData),
       }
     );
-    console.log("Limon unfollow");
+
+    // eslint-disable-next-line no-console
     console.log(res);
   };
 
@@ -139,7 +145,7 @@ export default function Sidebarfollowing({ user }: SidebarfollowingProps) {
   return (
     <div>
       <div className="relative p-2 rounded-xl bg-default-100">
-        <div className="h-[330px] w-full rounded-md"></div>
+        {/* <div className="h-[330px] w-full rounded-md"></div> */}
         <div className="relative my-3">
           <h1 className="text-2xl font-semibold">{user?.name}</h1>
           <p className="text-sm break-words">{user?.email}</p>

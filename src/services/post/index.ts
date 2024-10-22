@@ -1,12 +1,12 @@
 "use server";
 
 import { revalidateTag } from "next/cache";
+import { cookies } from "next/headers";
 
 import { getCurrentUser } from "../AuthService";
 
 import envConfig from "@/src/config/envConfig";
 import axiosInstance from "@/src/lib/AxiosInstance";
-import { cookies } from "next/headers";
 
 export const createPost = async (formData: FormData): Promise<any> => {
   try {
@@ -20,7 +20,6 @@ export const createPost = async (formData: FormData): Promise<any> => {
 
     return data;
   } catch (error) {
-    console.log(error);
     throw new Error("Failed to create post");
   }
 };
@@ -64,6 +63,7 @@ export const getMyPosts = async () => {
     }
 
     const data = await res.json();
+
     return data;
   } catch (error) {
     throw new Error(`Error fetching posts:`);

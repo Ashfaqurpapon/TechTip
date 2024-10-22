@@ -9,7 +9,7 @@ const CardSkeleton = () => {
       {/* Premium Button in upper-right corner */}
       <div className="absolute top-2 right-2">
         <Skeleton className="rounded-full">
-          <Button variant="flat" size="sm" className="ml-2 text-blue-500">
+          <Button className="ml-2 text-blue-500" size="sm" variant="flat">
             View Profile
           </Button>
         </Skeleton>
@@ -52,8 +52,8 @@ const CardSkeleton = () => {
             <Skeleton className="w-20 h-8 rounded-lg">
               <Button
                 className="text-pink-500 hover:text-pink-600"
-                variant="flat"
                 size="sm"
+                variant="flat"
               >
                 Like
               </Button>
@@ -61,8 +61,8 @@ const CardSkeleton = () => {
             <Skeleton className="w-28 h-8 rounded-lg">
               <Button
                 className="text-blue-500 hover:text-blue-600"
-                variant="flat"
                 size="sm"
+                variant="flat"
               >
                 Comment
               </Button>

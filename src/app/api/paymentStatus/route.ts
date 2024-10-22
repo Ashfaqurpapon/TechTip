@@ -1,11 +1,11 @@
 // Redirecting the user after handling the POST request
-import envConfig from "@/src/config/envConfig";
 import { NextResponse } from "next/server";
 
-export const POST = async (request: any) => {
+import envConfig from "@/src/config/envConfig";
+
+export const POST = async () => {
   //   const paymentDetails = await request.json();
 
-  console.log("Limon post is called");
   makePremumUser();
 
   // Process the payment data (e.g., validate and store in the database)
@@ -28,11 +28,15 @@ const makePremumUser = async () => {
     },
     body: JSON.stringify(commentData),
   });
+
+  // eslint-disable-next-line no-console
+  console.log(res);
 };
 
 // This is Vanilla JavaScript style to extract the token from document.cookie..
 const getCookie = (name: string) => {
   const value = `; ${document.cookie}`;
   const parts = value.split(`; ${name}=`);
+
   if (parts.length === 2) return parts.pop()?.split(";").shift();
 };

@@ -1,11 +1,12 @@
+/* eslint-disable prettier/prettier */
 "use client";
-
-import { ReactNode, useEffect, useState } from "react";
-import Container from "@/src/components/UI/Container";
-import Sidebarfollowing from "./Sidebarfollowing";
 import { useSearchParams } from "next/navigation";
-import envConfig from "@/src/config/envConfig";
+import { ReactNode, useEffect, useState } from "react";
 
+import Sidebarfollowing from "./Sidebarfollowing";
+
+import Container from "@/src/components/UI/Container";
+import envConfig from "@/src/config/envConfig";
 export default function Layout({ children }: { children: ReactNode }) {
   const searchParams = useSearchParams();
   const userId = searchParams.get("userId"); // Get userId from query parameters
@@ -23,15 +24,17 @@ export default function Layout({ children }: { children: ReactNode }) {
               cache: "no-store",
             }
           );
+
           if (response.ok) {
             const data = await response.json();
+
             setUser(data.data); // Assuming the API returns the user object
           } else {
-            console.error("Error fetching user data:", response.statusText);
+            throw new Error(`Error fetching user data: ${response.statusText}`);
           }
         }
       } catch (error) {
-        console.error("Error fetching user:", error);
+        throw new Error(`Error fetching user: ${error}`);
       }
     };
 

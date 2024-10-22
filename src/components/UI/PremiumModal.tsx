@@ -8,37 +8,40 @@ import {
   Button,
   useDisclosure,
 } from "@nextui-org/react";
+
 import { makePayment } from "@/src/services/AuthService";
+import { useUser } from "@/src/context/user.provider";
 
 export default function PremiumModal() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [backdrop, setBackdrop] = React.useState("opaque");
+
+  const { user } = useUser();
 
   const backdrops = ["blur"];
 
-  const handleOpen = (backdrop: any) => {
-    setBackdrop(backdrop);
+  const handleOpen = () => {
     onOpen();
   };
 
   const handlePayment = async () => {
     onClose();
-    const paymentResult = await makePayment({});
+    const paymentResult = await makePayment({ userId: user?._id });
+
     window.location.href = paymentResult.payment_url;
-    console.log("Payment Result:", paymentResult);
   };
 
   return (
     <>
       {/* className="absolute text-white bg-yellow-500 top-2 right-2" */}
-      <div className="absolute text-white top-2 right-2">
+      {/* <div className="absolute text-white top-2 right-2"> */}
+      <div>
         {backdrops.map((b) => (
           <Button
             key={b}
-            variant="flat"
-            color="warning"
-            onPress={() => handleOpen(b)}
             className="capitalize"
+            color="warning"
+            variant="flat"
+            onPress={() => handleOpen()}
           >
             {"Premium Post"}
           </Button>

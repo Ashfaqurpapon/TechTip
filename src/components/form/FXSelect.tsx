@@ -19,7 +19,7 @@ export default function FXSelect({
 }: IProps) {
   const {
     register,
-    formState: { errors },
+    formState: {},
   } = useFormContext();
 
   return (

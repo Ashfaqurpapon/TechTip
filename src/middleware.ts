@@ -23,6 +23,7 @@ export async function middleware(request: NextRequest) {
       return NextResponse.next();
     } else {
       return NextResponse.redirect(
+        // eslint-disable-next-line prettier/prettier
         new URL(`/login?redirect=${pathname}`, request.url)
       );
     }

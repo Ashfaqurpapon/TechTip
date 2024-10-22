@@ -1,5 +1,6 @@
 "use client";
-
+import { CldUploadWidget } from "next-cloudinary";
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@nextui-org/button";
 import Link from "next/link";
@@ -9,9 +10,6 @@ import FXForm from "@/src/components/form/FXForm";
 import FXInput from "@/src/components/form/FXInput";
 import { useUserRegistration } from "@/src/hooks/auth.hook";
 import registerValidationSchema from "@/src/schemas/register.schema";
-import { log } from "console";
-import { CldUploadWidget } from "next-cloudinary";
-import { useState } from "react";
 
 export default function RegisterPage() {
   const { mutate: handleUserRegistration, isPending } = useUserRegistration();
@@ -22,7 +20,7 @@ export default function RegisterPage() {
       ...data,
       imageUrlID,
     };
-    console.log(userData);
+
     handleUserRegistration(userData);
   };
 
@@ -37,7 +35,7 @@ export default function RegisterPage() {
       <div className="w-[35%]">
         <CldUploadWidget
           uploadPreset="Papon_Images"
-          onSuccess={({ event, info }) => {
+          onSuccess={({ info }) => {
             //
             if (
               typeof info === "object" &&
