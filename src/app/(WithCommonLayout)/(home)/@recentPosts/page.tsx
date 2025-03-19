@@ -7,13 +7,15 @@ export default async function RecentPosts() {
 
   return (
     <>
-      {posts?.length ? (
-        posts?.map((post: IPost) => <Card key={post._id} post={post} />)
-      ) : (
-        <div className="flex items-center justify-center w-full min-h-screen rounded-md bg-default-100">
-          <h1 className="text-4xl">No Post Found!</h1>
-        </div>
-      )}
+      <div className="bg-slate-400  mx-44">
+        {posts?.length ? (
+          posts?.map((post: IPost) => <Card key={post._id} post={post} />)
+        ) : (
+          <div className="flex items-center justify-center w-full min-h-screen rounded-md bg-default-100">
+            <h1 className="text-4xl">No Post Found!</h1>
+          </div>
+        )}
+      </div>
     </>
     // <Container>
     //   <div className="my-8 section-title">

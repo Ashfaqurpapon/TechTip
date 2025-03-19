@@ -22,7 +22,9 @@ export default async function FoundItems({
     <Container>
       <Filtering />
       <div className="mx-auto my-3 max-w-[720px]">
-        {data?.data?.map((post: IPost) => <Post key={post?._id} post={post} />)}
+        {data?.data?.map((post: IPost) => (
+          <Post key={post?._id} post={post} />
+        ))}
       </div>
     </Container>
   );

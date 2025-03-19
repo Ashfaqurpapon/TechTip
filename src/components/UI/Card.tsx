@@ -141,7 +141,7 @@ export default function Post({ post }: IProps) {
   const { user } = useUser();
 
   return (
-    <div className="relative p-4 mb-2 rounded-md bg-default-100">
+    <div className="p-4 mb-2 rounded-md  ">
       {/* Premium Button in upper-right corner */}
       {/* 
       <Link href={`/following?userId=${userId}`} passHref>

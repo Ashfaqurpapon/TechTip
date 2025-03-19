@@ -9,8 +9,10 @@ export default function layout({
 }) {
   return (
     <>
-      {children}
-      {recentPosts}
+      <div className="mx-auto">
+        {children}
+        {recentPosts}
+      </div>
     </>
   );
 }
