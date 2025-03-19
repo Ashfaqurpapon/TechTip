@@ -8,7 +8,7 @@ export const initiatePayment = async (paymentData: any) => {
       store_id: envConfig.STORE_ID,
       signature_key: envConfig.SIGNETURE_KEY,
       tran_id: paymentData.transactionId,
-      success_url: `http://localhost:8000/api/payment/make-payment/${paymentData.customerUserId}`,
+      success_url: `https://productsweb.vercel.app/api/payment/make-payment/${paymentData.customerUserId}`,
       fail_url: `${envConfig.baseApi}/v1/payment/confirmation?status=failed`,
       cancel_url: "http://localhost:5173/",
       amount: paymentData.totalPrice,
