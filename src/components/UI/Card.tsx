@@ -141,7 +141,7 @@ export default function Post({ post }: IProps) {
   const { user } = useUser();
 
   return (
-    <div className="p-4 mb-2 rounded-md   shadow-lg shadow-purple-800">
+    <div className="p-4 mb-7 rounded-md   shadow-lg shadow-purple-800">
       {/* Premium Button in upper-right corner */}
       {/* 
       <Link href={`/following?userId=${userId}`} passHref>
@@ -224,7 +224,7 @@ export default function Post({ post }: IProps) {
           {/* Like and Comment buttons */}
           <div className="flex items-center justify-between mt-4">
             <Button
-              className="mr-2 bg-pink-500 hover:text-pink-600 text-white"
+              className="mr-2 bg-pink-500 hover:text-blue-900 text-white"
               size="sm"
               variant="flat"
               onClick={() => handleLiketSubmit()}

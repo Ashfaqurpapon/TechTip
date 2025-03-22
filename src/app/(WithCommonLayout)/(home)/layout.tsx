@@ -9,7 +9,7 @@ export default function layout({
 }) {
   return (
     <>
-      <div className="mx-auto mt-9">
+      <div className="mx-auto mt-9 mb-7">
         {children}
         {recentPosts}
       </div>
