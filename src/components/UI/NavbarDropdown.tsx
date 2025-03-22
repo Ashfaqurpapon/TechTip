@@ -12,6 +12,7 @@ import { Avatar } from "@nextui-org/avatar";
 import { logout } from "@/src/services/AuthService";
 import { useUser } from "@/src/context/user.provider";
 import { protectedRoutes } from "@/src/constant";
+import { CldImage } from "next-cloudinary";
 
 export default function NavbarDropdown() {
   const router = useRouter();
@@ -34,7 +35,13 @@ export default function NavbarDropdown() {
   return (
     <Dropdown>
       <DropdownTrigger>
-        <Avatar className="cursor-pointer" src={user?.imageUrlID} />
+        <CldImage
+          className="w-10 h-10 border-2 border-black rounded-full object-cover"
+          src={user?.imageUrlID || "/default-avatar.png"}
+          alt={"Nai"}
+          width={40}
+          height={40}
+        ></CldImage>
       </DropdownTrigger>
       <DropdownMenu aria-label="Static Actions">
         <DropdownItem onClick={() => handleNavigation("/profile")}>

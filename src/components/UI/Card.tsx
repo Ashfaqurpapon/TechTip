@@ -155,28 +155,31 @@ export default function Post({ post }: IProps) {
         </div>
       )} */}
       {/* Card Header with post user information */}
-      <Link passHref href={`/following?userId=${userId}`}>
-        <Button className="ml-2 text-blue-500" size="sm" variant="flat">
-          View Profile
-        </Button>
-      </Link>
+
       <div className="pb-2 border-b border-default-200">
         <div className="flex items-center justify-between pb-4">
           <div className="flex items-center gap-3">
             {/* <Avatar alt={user?.imageUrlID} /> */}
             <CldImage
               className="w-10 h-10 border-2 border-black rounded-full object-cover"
-              src={user?.imageUrlID || "/default-avatar.png"}
+              src={postUser?.imageUrlID || "/default-avatar.png"}
               alt={"Nai"}
               width={40}
               height={40}
             ></CldImage>
             <div>
-              <p className="font-semibold">{postUser?.name}</p>
-              <p className="text-xs text-gray-500">{postUser?.email}</p>
               <p className="text-sm text-gray-600">
-                Post category: {postCategory}
+                <Link passHref href={`/following?userId=${userId}`}>
+                  <Button
+                    className="font-semibold bg-blue-500 text-white "
+                    size="sm"
+                    variant="flat"
+                  >
+                    {postUser?.name}
+                  </Button>
+                </Link>
               </p>
+              <p className="text-xs text-gray-500">{postUser?.email}</p>
             </div>
           </div>
         </div>
@@ -190,6 +193,9 @@ export default function Post({ post }: IProps) {
                   {postTitle}
                 </h1>
               </Link>
+              <p className="text-sm text-emerald-700">
+                Category: {postCategory}
+              </p>
             </div>
           </div>
 
