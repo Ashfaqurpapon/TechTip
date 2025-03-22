@@ -141,7 +141,7 @@ export default function Post({ post }: IProps) {
   const { user } = useUser();
 
   return (
-    <div className="p-4 mb-2 rounded-md  ">
+    <div className="p-4 mb-2 rounded-md border-3 border-rose-300">
       {/* Premium Button in upper-right corner */}
       {/* 
       <Link href={`/following?userId=${userId}`} passHref>
@@ -149,11 +149,11 @@ export default function Post({ post }: IProps) {
           View Profile
         </Button>
       </Link> */}
-      {!user?.isPremium && (
+      {/* {!user?.isPremium && (
         <div className="absolute text-white top-2 right-2">
           <PremiumModal />
         </div>
-      )}
+      )} */}
       {/* Card Header with post user information */}
       <Link passHref href={`/following?userId=${userId}`}>
         <Button className="ml-2 text-blue-500" size="sm" variant="flat">
@@ -163,8 +163,14 @@ export default function Post({ post }: IProps) {
       <div className="pb-2 border-b border-default-200">
         <div className="flex items-center justify-between pb-4">
           <div className="flex items-center gap-3">
-            <Avatar alt={user?.name} />
-            {/* <CldImage src={} alt={"Nai"} width={20} height={20}></CldImage> */}
+            {/* <Avatar alt={user?.imageUrlID} /> */}
+            <CldImage
+              className="w-10 h-10 border-2 border-black rounded-full object-cover"
+              src={user?.imageUrlID || "/default-avatar.png"}
+              alt={"Nai"}
+              width={40}
+              height={40}
+            ></CldImage>
             <div>
               <p className="font-semibold">{postUser?.name}</p>
               <p className="text-xs text-gray-500">{postUser?.email}</p>
@@ -201,7 +207,13 @@ export default function Post({ post }: IProps) {
             </div>
           )} */}
 
-          <CldImage alt={imageUrl} height={300} src={imageUrl} width={300} />
+          <CldImage
+            className="ml-40"
+            alt={imageUrl}
+            height={200}
+            src={post.imageUrl}
+            width={400}
+          />
 
           {/* Like and Comment buttons */}
           <div className="flex items-center justify-between mt-4">

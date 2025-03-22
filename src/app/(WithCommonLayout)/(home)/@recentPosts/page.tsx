@@ -7,7 +7,7 @@ export default async function RecentPosts() {
 
   return (
     <>
-      <div className="bg-slate-400  mx-44">
+      <div className="  mx-56">
         {posts?.length ? (
           posts?.map((post: IPost) => <Card key={post._id} post={post} />)
         ) : (
