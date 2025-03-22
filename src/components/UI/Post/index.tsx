@@ -138,25 +138,11 @@ export default function Post({ post }: IProps) {
   };
 
   return (
-    <div className="relative p-4 mb-2 rounded-md bg-default-100">
+    <div className=" bg-slate-300 relative p-4 mb-2 rounded-md    shadow-lg shadow-purple-800">
       {/* Premium Button in upper-right corner */}
       <Link passHref href={`/following?userId=${userId}`} />
       {/* Card Header with post user information */}
       <div className="pb-2 border-b border-default-200">
-        <div className="flex items-center justify-between pb-4">
-          <div className="flex items-center gap-3">
-            <Avatar alt={userId?.name} />
-            {/* <CldImage src={} alt={"Nai"} width={20} height={20}></CldImage> */}
-            <div>
-              <p className="font-semibold">{userId?.name}</p>
-              <p className="text-xs text-gray-500">{userId?.email}</p>
-              <p className="text-sm text-gray-600">
-                Post category: {postCategory}
-              </p>
-            </div>
-          </div>
-        </div>
-
         {/* Post content */}
         <div className="py-4 border-b border-default-200">
           <div className="flex items-start justify-between mb-4">
@@ -166,6 +152,9 @@ export default function Post({ post }: IProps) {
                   {postTitle}
                 </h1>
               </Link>
+              <p className="text-sm text-emerald-700">
+                Category: {postCategory}
+              </p>
             </div>
           </div>
 
@@ -183,12 +172,18 @@ export default function Post({ post }: IProps) {
             </div>
           )} */}
 
-          <CldImage alt={imageUrl} height={300} src={imageUrl} width={300} />
+          <CldImage
+            className="ml-52"
+            alt={imageUrl}
+            height={200}
+            src={post.imageUrl}
+            width={400}
+          />
 
           {/* Like and Comment buttons */}
           <div className="flex items-center justify-between mt-4">
             <Button
-              className="mr-2 text-pink-500 hover:text-pink-600"
+              className="mr-2 bg-pink-500 hover:text-blue-900 text-white"
               size="sm"
               variant="flat"
               onClick={() => handleLiketSubmit()}
@@ -197,7 +192,8 @@ export default function Post({ post }: IProps) {
               Like ({numberOfLikes + localNumberOfLikes || 0})
             </Button>
             <Button
-              className="mr-2 text-blue-500 hover:text-blue-600"
+              className="mr-2 text-white
+               hover:text-red-500  bg-green-400"
               size="sm"
               variant="flat"
               onClick={() => setShowCommentBox(!showCommentBox)}
