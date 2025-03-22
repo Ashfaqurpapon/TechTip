@@ -141,7 +141,7 @@ export default function Post({ post }: IProps) {
   const { user } = useUser();
 
   return (
-    <div className="p-4 mb-2 rounded-md border-3 border-rose-300">
+    <div className="p-4 mb-2 rounded-md   shadow-lg shadow-purple-800">
       {/* Premium Button in upper-right corner */}
       {/* 
       <Link href={`/following?userId=${userId}`} passHref>
@@ -214,7 +214,7 @@ export default function Post({ post }: IProps) {
           )} */}
 
           <CldImage
-            className="ml-40"
+            className="ml-52"
             alt={imageUrl}
             height={200}
             src={post.imageUrl}
@@ -224,7 +224,7 @@ export default function Post({ post }: IProps) {
           {/* Like and Comment buttons */}
           <div className="flex items-center justify-between mt-4">
             <Button
-              className="mr-2 text-pink-500 hover:text-pink-600"
+              className="mr-2 bg-pink-500 hover:text-pink-600 text-white"
               size="sm"
               variant="flat"
               onClick={() => handleLiketSubmit()}
@@ -233,7 +233,8 @@ export default function Post({ post }: IProps) {
               Like ({numberOfLikes + localNumberOfLikes || 0})
             </Button>
             <Button
-              className="mr-2 text-blue-500 hover:text-blue-600"
+              className="mr-2 text-white
+               hover:text-red-500  bg-green-400"
               size="sm"
               variant="flat"
               onClick={() => setShowCommentBox(!showCommentBox)}

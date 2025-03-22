@@ -1,10 +1,8 @@
 import React from "react";
-
 import { IComment } from "@/src/types";
 
-// Define the type for the props
 interface CommentProps {
-  comments: IComment[]; // Array of comments as props
+  comments: IComment[];
 }
 
 const Comment = ({ comments }: CommentProps) => {
@@ -17,22 +15,26 @@ const Comment = ({ comments }: CommentProps) => {
           borderColor: "#f5f5f5",
         }}
       />
-      {comments.map((comment, index) => (
-        <div
-          key={index}
-          style={{
-            backgroundColor: "#333", // Uses the CSS variable for background
-            color: "#f5f5f5", // Uses the CSS variable for text color
-            padding: "15px",
-            marginBottom: "10px",
-            borderRadius: "8px",
-            width: "100%",
-            wordWrap: "break-word", // Ensure long words break to fit the width
-          }}
-        >
-          <p style={{ margin: 0 }}>{comment.description}</p>
-        </div>
-      ))}
+      {comments.length === 0 ? (
+        <p style={{ color: "gray", textAlign: "center" }}>No comments</p>
+      ) : (
+        comments.map((comment, index) => (
+          <div
+            key={index}
+            style={{
+              backgroundColor: "white",
+              color: "black",
+              padding: "15px",
+              marginBottom: "10px",
+              borderRadius: "8px",
+              width: "100%",
+              wordWrap: "break-word",
+            }}
+          >
+            <p style={{ margin: 0 }}>{comment.description}</p>
+          </div>
+        ))
+      )}
     </div>
   );
 };
