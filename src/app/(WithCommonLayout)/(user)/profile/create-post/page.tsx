@@ -145,7 +145,7 @@ export default function CreatePost() {
           {({ open }) => {
             return (
               <button
-                className="w-full my-3 rounded-md bg-default-900 text-default p-4"
+                className="w-full my-3  rounded-md bg-default-900 text-default p-4"
                 onClick={() => open()}
               >
                 Click here to Upload an Image

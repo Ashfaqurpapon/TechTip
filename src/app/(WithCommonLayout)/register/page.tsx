@@ -29,9 +29,15 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="flex h-[calc(100vh-100px)] flex-col items-center justify-center">
-      <h3 className="my-2 text-xl font-bold">Register with FoundX</h3>
-      <p className="mb-4">Help Lost Items Find Their Way Home</p>
+    <div className="mb-20 mt-10 flex h-[calc(100vh-100px)] flex-col items-center justify-center">
+      <h3 className="my-2 text-xl font-bold">
+        Register with
+        <span className=" text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600 ">
+          {" "}
+          Techtip{" "}
+        </span>
+      </h3>
+      <p className="mb-4">Your go-to platform for all things tech</p>
       <div className="w-[35%]">
         <CldUploadWidget
           uploadPreset="Papon_Images"
@@ -49,10 +55,10 @@ export default function RegisterPage() {
           {({ open }) => {
             return (
               <button
-                className="w-full my-3 rounded-md bg-default-900 text-default"
+                className="w-full p-4 my-3 rounded-md bg-default-900 text-default"
                 onClick={() => open()}
               >
-                Upload an Image
+                Click here to Upload an Image
               </button>
             );
           }}
@@ -63,17 +69,17 @@ export default function RegisterPage() {
           resolver={zodResolver(registerValidationSchema)}
           onSubmit={onSubmit}
         >
-          <div className="py-3">
+          <div className=" border-1 border-slate-400  rounded-xl ">
             <FXInput label="Name" name="name" size="sm" />
           </div>
-          <div className="py-3">
+          <div className=" border-1 border-slate-400  rounded-xl">
             <FXInput label="Email" name="email" size="sm" />
           </div>
-          <div className="py-3">
+          <div className=" border-1 border-slate-400  rounded-xl">
             <FXInput label="Role" name="role" size="sm" />
           </div>
 
-          <div className="py-3">
+          <div className=" border-1 border-slate-400  rounded-xl">
             <FXInput
               label="Password"
               name="password"
@@ -81,10 +87,10 @@ export default function RegisterPage() {
               type="password"
             />
           </div>
-          <div className="py-3">
+          <div className=" border-1 border-slate-400  rounded-xl">
             <FXInput label="Phone" name="phone" size="sm" />
           </div>
-          <div className="py-3">
+          <div className=" border-1 border-slate-400  rounded-xl">
             <FXInput label="Address" name="address" size="sm" />
           </div>
 
