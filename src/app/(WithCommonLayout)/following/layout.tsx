@@ -43,12 +43,12 @@ export default function Layout({ children }: { children: ReactNode }) {
 
   return (
     <Container>
-      <div className="my-3 flex w-full gap-12">
-        <div className="w-2/5">
+      <div className="my-3 flex w-full gap-12   ">
+        <div className="w-2/5 h-screen sticky top-0">
           {/* Pass the user data to the Sidebarfollowing */}
           <Sidebarfollowing user={user} />
         </div>
-        <div className="w-4/5">{children}</div>
+        <div className="w-4/5  ">{children}</div>
       </div>
     </Container>
   );

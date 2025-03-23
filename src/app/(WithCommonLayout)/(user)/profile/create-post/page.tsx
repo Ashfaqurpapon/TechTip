@@ -127,7 +127,7 @@ export default function CreatePost() {
     <>
       {/* {createPostPending && <Loading />} */}
       <div className="h-full rounded-xl bg-gradient-to-b from-default-100 px-[73px] py-12">
-        <h1 className="text-2xl font-semibold">Post a found item</h1>
+        <h1 className="text-2xl font-semibold">Post a Teck item</h1>
         <Divider className="mt-3 mb-5" />
         <CldUploadWidget
           uploadPreset="Papon_Images"
@@ -145,10 +145,10 @@ export default function CreatePost() {
           {({ open }) => {
             return (
               <button
-                className="w-full my-3 rounded-md bg-default-900 text-default"
+                className="w-full my-3 rounded-md bg-default-900 text-default p-4"
                 onClick={() => open()}
               >
-                Upload an Image
+                Click here to Upload an Image
               </button>
             );
           }}
@@ -156,7 +156,7 @@ export default function CreatePost() {
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-wrap gap-2 py-2">
-              <div className="flex-1 min-w-fit">
+              <div className="flex-1 min-w-fit border-1 border-slate-400  rounded-xl ">
                 <FXInput label="Title" name="postTitle" />
               </div>
               {/* <div className="flex-1 min-w-fit">
@@ -164,7 +164,7 @@ export default function CreatePost() {
               </div> */}
             </div>
             <div className="flex flex-wrap gap-2 py-2">
-              <div className="flex-1 min-w-fit">
+              <div className="flex-1 min-w-fit border-1 border-slate-400 rounded-xl">
                 <FXInput label="Category" name="postCategory" />
               </div>
               <div className="flex-1 min-w-fit">
@@ -202,7 +202,7 @@ export default function CreatePost() {
             )} */}
 
             <div className="flex flex-wrap-reverse gap-2 py-2">
-              <div className="flex-1 min-w-fit">
+              <div className="flex-1 min-w-fit border-1 border-slate-400  rounded-xl">
                 <FXTextarea label="Description" name="description" />
               </div>
             </div>
@@ -216,8 +216,12 @@ export default function CreatePost() {
             </div> */}
 
             <Divider className="my-5" />
-            <div className="flex justify-end">
-              <Button size="lg" type="submit">
+            <div className="flex justify-end ">
+              <Button
+                size="lg"
+                type="submit"
+                className="bg-indigo-600 text-white"
+              >
                 Post
               </Button>
             </div>

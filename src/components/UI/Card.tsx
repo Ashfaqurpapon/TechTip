@@ -13,6 +13,7 @@ import PremiumModal from "./PremiumModal";
 import { useUser } from "@/src/context/user.provider";
 import { IComment, IPost, IUser } from "@/src/types";
 import envConfig from "@/src/config/envConfig";
+import { Tooltip } from "@nextui-org/react";
 
 interface IProps {
   post: IPost;
@@ -170,13 +171,18 @@ export default function Post({ post }: IProps) {
             <div>
               <p className="text-sm text-gray-600">
                 <Link passHref href={`/following?userId=${userId}`}>
-                  <Button
-                    className="font-semibold bg-blue-500 text-white "
-                    size="sm"
-                    variant="flat"
+                  <Tooltip
+                    className="bg-slate-800 rounded-lg text-white"
+                    content="View Profile"
                   >
-                    {postUser?.name}
-                  </Button>
+                    <Button
+                      className="font-semibold bg-blue-500 text-white"
+                      size="sm"
+                      variant="flat"
+                    >
+                      {postUser?.name}
+                    </Button>
+                  </Tooltip>
                 </Link>
               </p>
               <p className="text-xs text-gray-500">{postUser?.email}</p>
