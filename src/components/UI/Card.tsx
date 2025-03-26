@@ -32,7 +32,7 @@ export default function Post({ post }: IProps) {
     numberOfLikes,
   } = post || {};
   const {} = (userId as IUser) || {};
-
+  console.log(userId);
   // State to toggle comment box
   const [postUser, setPostUser] = useState<IUser | null>(null);
   const [localNumberOfLikes, setlocalNumberOfLikes] = useState<number>(0);
@@ -88,6 +88,7 @@ export default function Post({ post }: IProps) {
     }
     getComments();
   }, [userId]);
+  console.log(postUser);
 
   // Handle comment form submission
   const handleCommentSubmit = async (e: React.FormEvent) => {
