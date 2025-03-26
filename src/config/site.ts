@@ -13,8 +13,8 @@ export const siteConfig = {
       href: "/about",
     },
     {
-      label: "Found Items",
-      href: "/found-items",
+      label: "Items",
+      href: "/items",
     },
   ],
   navMenuItems: [
@@ -27,8 +27,8 @@ export const siteConfig = {
       href: "/about",
     },
     {
-      label: "Found Items",
-      href: "/found-items",
+      label: "Items",
+      href: "/items",
     },
   ],
 };

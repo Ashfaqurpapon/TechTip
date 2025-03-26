@@ -29,21 +29,23 @@ export const Navbar = () => {
   const router = useRouter();
 
   return (
-    <NextUINavbar maxWidth="xl" position="sticky">
-      <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
-        <NavbarBrand as="li" className="gap-3 max-w-fit">
+    <NextUINavbar className="  bg-slate-200" maxWidth="xl" position="static">
+      <NavbarContent className=" basis-1/5 sm:basis-full" justify="start">
+        <NavbarBrand as="li" className="gap-3 max-w-fit ">
           <NextLink className="flex justify-start items-center gap-1" href="/">
             <Logo />
-            <p className="font-bold text-inherit">Techtip</p>
+            <p className=" text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600 ">
+              Techtip
+            </p>
           </NextLink>
         </NavbarBrand>
-        <ul className="hidden lg:flex gap-4 justify-start ml-2">
+        <ul className="hidden lg:flex gap-6 justify-items-end ml-44 pl-56 text-2xl font-semibold">
           {siteConfig.navItems.map((item) => (
             <NavbarItem key={item.href}>
               <NextLink
                 className={clsx(
                   linkStyles({ color: "foreground" }),
-                  "data-[active=true]:text-primary data-[active=true]:font-medium"
+                  " data-[active=true]:text-primary data-[active=true]:font-medium text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600 "
                 )}
                 color="foreground"
                 href={item.href}
@@ -67,8 +69,13 @@ export const Navbar = () => {
             <NavbarDropdown />
           </NavbarItem>
         ) : (
-          <NavbarItem className="hidden sm:flex gap-2">
-            <Button onClick={() => router.push("/login")}>Login</Button>
+          <NavbarItem className="hidden sm:flex  mb-2">
+            <Button
+              onClick={() => router.push("/login")}
+              className="  transition-transform duration-300 transform hover:scale-105 active:scale-95 shadow-lg shadow-purple-800 bg-blue-500/90 text-white"
+            >
+              Login
+            </Button>
           </NavbarItem>
         )}
       </NavbarContent>

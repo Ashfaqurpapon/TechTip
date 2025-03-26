@@ -109,15 +109,17 @@ const Sidebar = () => {
 
   return (
     <div>
-      <div className="p-2 rounded-xl bg-default-100">
-        <div className="h-[330px] w-full rounded-md">
+      <div className="">
+        <div className="w-36 h-36 rounded-full overflow-hidden ml-15 border-2 border-gray-300">
           <CldImage
             alt={user?.imageUrlID ?? ""}
-            height={300}
+            height={140}
             src={user?.imageUrlID ?? ""}
-            width={300}
+            width={140}
+            className="w-full h-full object-cover"
           />
         </div>
+
         <div className="my-3">
           <h1 className="text-2xl font-semibold">{user?.name}</h1>
           <p className="text-sm break-words">{user?.email}</p>
@@ -126,14 +128,14 @@ const Sidebar = () => {
         {/* Create Post Button */}
         <Button
           as={Link}
-          className="w-full mt-2 rounded-md"
+          className="w-full mt-2 rounded-md bg-gray-400 "
           href={"/profile/create-post"}
         >
           Create a post
         </Button>
 
         {/* Followers and Following Buttons */}
-        <div className="mt-3 space-y-2">
+        <div className="gap-2 flex mt-2">
           <Button className="w-full" color="primary" onClick={fetchFollowers}>
             Followers
           </Button>
@@ -159,7 +161,13 @@ const Sidebar = () => {
                     key={follower._id}
                     className="flex items-center p-2 space-x-3 rounded-md bg-default-200"
                   >
-                    <Avatar alt={follower.name} />
+                    <CldImage
+                      className="w-10 h-10 border-2 border-black rounded-full object-cover"
+                      src={follower.imageUrlID || "/default-avatar.png"}
+                      alt={"Nai"}
+                      width={40}
+                      height={40}
+                    ></CldImage>
                     <div>
                       <p className="font-semibold">{follower.name}</p>
                       <p className="text-sm text-gray-500">{follower.email}</p>
@@ -188,7 +196,13 @@ const Sidebar = () => {
                     key={followedUser._id}
                     className="flex items-center p-2 space-x-3 rounded-md bg-default-200"
                   >
-                    <Avatar alt={followedUser.name} />
+                    <CldImage
+                      className="w-10 h-10 border-2 border-black rounded-full object-cover"
+                      src={followedUser.imageUrlID || "/default-avatar.png"}
+                      alt={"Nai"}
+                      width={40}
+                      height={40}
+                    ></CldImage>
                     <div>
                       <p className="font-semibold">{followedUser.name}</p>
                       <p className="text-sm text-gray-500">

@@ -1,9 +1,19 @@
 import Post from "@/src/components/UI/Post";
-import { getMyPosts } from "@/src/services/post";
+import { getMyPosts, getSelectedPeoplePosts } from "@/src/services/post";
 import { IPost } from "@/src/types";
 
-export default async function page() {
-  const { data } = await getMyPosts();
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: { userId?: string };
+}) {
+  const userId = searchParams?.userId || null; // Get userId safely
+  //console.log(userId); // Logs the correct userId
+  if (!userId) {
+    return <div>No user ID provided</div>;
+  }
+
+  const { data } = await getSelectedPeoplePosts(userId);
 
   return (
     <>

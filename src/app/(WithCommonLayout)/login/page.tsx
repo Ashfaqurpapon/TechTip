@@ -42,18 +42,24 @@ const LoginPage = () => {
   return (
     <>
       {isPending && <Loading />}
-      <div className="flex h-[calc(100vh-200px)] w-full flex-col items-center justify-center">
-        <h3 className="my-2 text-2xl font-bold">Login with FoundX</h3>
+      <div className="flex h-[calc(100vh-200px)] w-full flex-col items-center justify-center mb-8">
+        <h3 className="my-2 text-2xl font-bold">
+          Login with{" "}
+          <span className=" text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600 ">
+            {" "}
+            Techtip{" "}
+          </span>
+        </h3>
         <p className="mb-4">Welcome Back! Let&lsquo;s Get Started</p>
         <div className="w-[35%]">
           <FXForm
             resolver={zodResolver(loginValidationSchema)}
             onSubmit={onSubmit}
           >
-            <div className="py-3">
+            <div className=" border-1 border-slate-400  rounded-xl">
               <FXInput label="Email" name="email" type="email" />
             </div>
-            <div className="py-3">
+            <div className=" border-1 border-slate-400  rounded-xl">
               <FXInput label="Password" name="password" type="password" />
             </div>
 

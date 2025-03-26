@@ -10,7 +10,7 @@ export default function layout({ children }: { children: ReactNode }) {
         <div className="w-2/5">
           <Sidebar />
         </div>
-        <div className="w-4/5">{children}</div>
+        <div className="w-4/5 ">{children}</div>
       </div>
     </Container>
   );

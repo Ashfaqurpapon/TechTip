@@ -1,76 +1,38 @@
-import { Card as NextUiCard } from "@nextui-org/card";
-import { Skeleton } from "@nextui-org/skeleton";
-import { Button } from "@nextui-org/button";
-import { Avatar } from "@nextui-org/avatar";
+import React from "react";
 
 const CardSkeleton = () => {
   return (
-    <NextUiCard className="relative p-4 mb-2 rounded-md bg-default-100">
-      {/* Premium Button in upper-right corner */}
-      <div className="absolute top-2 right-2">
-        <Skeleton className="rounded-full">
-          <Button className="ml-2 text-blue-500" size="sm" variant="flat">
-            View Profile
-          </Button>
-        </Skeleton>
-      </div>
-
-      {/* Card Header with user information */}
-      <div className="pb-2 border-b border-default-200">
-        <div className="flex items-center justify-between pb-4">
-          <div className="flex items-center gap-3">
-            <Skeleton className="rounded-full">
-              <Avatar size="lg" />
-            </Skeleton>
-            <div>
-              <Skeleton className="w-20 h-4 rounded-lg">
-                <div className="h-4 bg-default-200" />
-              </Skeleton>
-              <Skeleton className="w-32 h-3 mt-1 rounded-lg">
-                <div className="h-3 bg-default-200" />
-              </Skeleton>
-            </div>
-          </div>
-        </div>
-
-        {/* Post content */}
-        <div className="py-4 border-b border-default-200">
-          <Skeleton className="w-48 h-6 mb-2 rounded-lg">
-            <div className="h-6 bg-default-300" />
-          </Skeleton>
-          <Skeleton className="w-full h-16 mb-4 rounded-lg">
-            <div className="h-16 bg-default-200" />
-          </Skeleton>
-
-          {/* Placeholder image */}
-          <Skeleton className="rounded-lg">
-            <div className="h-60 bg-default-300" />
-          </Skeleton>
-
-          {/* Like and Comment buttons */}
-          <div className="flex items-center justify-between mt-4">
-            <Skeleton className="w-20 h-8 rounded-lg">
-              <Button
-                className="text-pink-500 hover:text-pink-600"
-                size="sm"
-                variant="flat"
-              >
-                Like
-              </Button>
-            </Skeleton>
-            <Skeleton className="w-28 h-8 rounded-lg">
-              <Button
-                className="text-blue-500 hover:text-blue-600"
-                size="sm"
-                variant="flat"
-              >
-                Comment
-              </Button>
-            </Skeleton>
+    <div className="p-4 mb-7 rounded-md shadow-lg shadow-purple-800 bg-gray-200 animate-pulse">
+      {/* Header Section */}
+      <div className="pb-2 border-b border-gray-300">
+        <div className="flex items-center gap-3 pb-4">
+          {/* Circular Avatar Placeholder */}
+          <div className="w-10 h-10 rounded-full bg-gray-400"></div>
+          <div>
+            <div className="w-24 h-4 bg-gray-400 rounded"></div>
+            <div className="w-36 h-3 mt-1 bg-gray-300 rounded"></div>
           </div>
         </div>
       </div>
-    </NextUiCard>
+
+      {/* Post Title */}
+      <div className="w-3/5 h-6 mt-4 bg-gray-400 rounded"></div>
+
+      {/* Category */}
+      <div className="w-2/5 h-4 mt-2 bg-gray-300 rounded"></div>
+
+      {/* Description Placeholder */}
+      <div className="w-full h-20 mt-4 bg-gray-300 rounded"></div>
+
+      {/* Image Placeholder */}
+      <div className="w-full h-40 mt-4 bg-gray-400 rounded"></div>
+
+      {/* Like & Comment Buttons */}
+      <div className="flex items-center justify-between mt-4">
+        <div className="w-20 h-8 bg-gray-400 rounded"></div>
+        <div className="w-20 h-8 bg-gray-400 rounded"></div>
+      </div>
+    </div>
   );
 };
 

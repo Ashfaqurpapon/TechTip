@@ -7,6 +7,7 @@ import { useState } from "react";
 import { Avatar } from "@nextui-org/avatar";
 
 import envConfig from "@/src/config/envConfig";
+import { CldImage } from "next-cloudinary";
 
 interface IUser {
   _id: string;
@@ -144,9 +145,16 @@ export default function Sidebarfollowing({ user }: SidebarfollowingProps) {
 
   return (
     <div>
-      <div className="relative p-2 rounded-xl bg-default-100">
+      <div className="relative p-2  rounded-xl bg-slate-200 shadow-lg  ">
         {/* <div className="h-[330px] w-full rounded-md"></div> */}
         <div className="relative my-3">
+          <CldImage
+            className="w-10 h-10 border-2 border-black rounded-full object-cover"
+            src={user?.imageUrlID || "/default-avatar.png"}
+            alt={"Nai"}
+            width={40}
+            height={40}
+          ></CldImage>
           <h1 className="text-2xl font-semibold">{user?.name}</h1>
           <p className="text-sm break-words">{user?.email}</p>
 
@@ -162,8 +170,8 @@ export default function Sidebarfollowing({ user }: SidebarfollowingProps) {
       </div>
 
       {/* Followers and Following Buttons */}
-      <div className="p-2 mt-3 space-y-2 rounded-xl bg-default-100">
-        <div className="flex justify-between">
+      <div className=" mt-5 space-y-2 rounded-xl ">
+        <div className="flex justify-between gap-3">
           <Button onClick={fetchFollowers} className="w-full" color="primary">
             Followers
           </Button>
