@@ -69,3 +69,30 @@ export const getMyPosts = async () => {
     throw new Error(`Error fetching posts:`);
   }
 };
+
+export const getSelectedPeoplePosts = async (userId: string) => {
+  if (!userId) {
+    throw new Error("User ID is required to fetch posts");
+  }
+
+  try {
+    const res = await fetch(`${envConfig.baseApi}/post/user/${userId}`, {
+      cache: "no-store",
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${cookies().get("token")?.value}`, // If authentication is needed
+      },
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch posts");
+    }
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+    throw new Error(`Error fetching posts`);
+  }
+};

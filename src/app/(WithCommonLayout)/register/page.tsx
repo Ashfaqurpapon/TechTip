@@ -11,18 +11,39 @@ import FXInput from "@/src/components/form/FXInput";
 import { useUserRegistration } from "@/src/hooks/auth.hook";
 import registerValidationSchema from "@/src/schemas/register.schema";
 
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
+
 export default function RegisterPage() {
-  const { mutate: handleUserRegistration, isPending } = useUserRegistration();
+  const {
+    mutate: handleUserRegistration,
+    isPending,
+    isSuccess,
+  } = useUserRegistration();
   const [imageUrlID, setimageUrlID] = useState("");
+  const router = useRouter(); // Initialize router
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirect");
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const userData = {
       ...data,
       imageUrlID,
     };
+    localStorage.setItem("savedEmail", data.email);
+    localStorage.setItem("savedPassword", data.password);
 
     handleUserRegistration(userData);
   };
+  useEffect(() => {
+    if (!isPending && isSuccess) {
+      if (redirect) {
+        router.push(redirect);
+      } else {
+        router.push("/login");
+      }
+    }
+  }, [isPending, isSuccess]);
 
   if (isPending) {
     //  handle loading state
@@ -97,9 +118,9 @@ export default function RegisterPage() {
           <Button
             className="w-full my-3 rounded-md bg-default-900 text-default"
             size="lg"
-            type="submit"
+            type="submit" // This will trigger form submission
           >
-            Registration
+            Register
           </Button>
         </FXForm>
         <div className="text-center">

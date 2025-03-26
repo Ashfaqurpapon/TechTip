@@ -147,11 +147,8 @@ export default function Post({ post }: IProps) {
         <div className="py-4 border-b border-default-200">
           <div className="flex items-start justify-between mb-4">
             <div>
-              <Link href={`/found-items/${_id}`}>
-                <h1 className="text-2xl font-bold cursor-pointer">
-                  {postTitle}
-                </h1>
-              </Link>
+              <h1 className="text-2xl font-bold ">{postTitle}</h1>
+
               <p className="text-sm text-emerald-700">
                 Category: {postCategory}
               </p>

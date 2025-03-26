@@ -162,7 +162,7 @@ export default function Post({ post }: IProps) {
           <div className="flex items-center gap-3">
             {/* <Avatar alt={user?.imageUrlID} /> */}
             <CldImage
-              className="w-10 h-10 border-2 border-black rounded-full object-cover"
+              className="   w-10 h-10 border-2 border-black rounded-full object-cover"
               src={postUser?.imageUrlID || "/default-avatar.png"}
               alt={"Nai"}
               width={40}
@@ -194,11 +194,8 @@ export default function Post({ post }: IProps) {
         <div className="py-4 border-b border-default-200">
           <div className="flex items-start justify-between mb-4">
             <div>
-              <Link href={`/found-items/${_id}`}>
-                <h1 className="text-2xl font-bold cursor-pointer">
-                  {postTitle}
-                </h1>
-              </Link>
+              <h1 className="text-2xl font-bold ">{postTitle}</h1>
+
               <p className="text-sm text-emerald-700">
                 Category: {postCategory}
               </p>
@@ -220,7 +217,7 @@ export default function Post({ post }: IProps) {
           )} */}
 
           <CldImage
-            className="ml-52"
+            className="ml-52 w-full max-w-[400px] h-auto"
             alt={imageUrl}
             height={200}
             src={post.imageUrl}

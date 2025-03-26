@@ -1,6 +1,7 @@
 import { getRecentPosts } from "@/src/services/RecentPosts";
 import Card from "@/src/components/UI/Card";
 import { IPost } from "@/src/types";
+import CardSkeleton from "@/src/components/UI/CardSkeleton";
 
 export default async function RecentPosts() {
   const { data: posts } = await getRecentPosts();
