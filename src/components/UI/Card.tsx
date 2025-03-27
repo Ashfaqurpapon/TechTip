@@ -216,14 +216,14 @@ export default function Post({ post }: IProps) {
               />
             </div>
           )} */}
-
-          <CldImage
-            className="ml-52 w-full max-w-[400px] h-auto"
-            alt={imageUrl}
-            height={200}
-            src={post.imageUrl}
-            width={400}
-          />
+          <div className="ml-52 ">
+            <CldImage
+              alt={imageUrl}
+              height={200}
+              src={post.imageUrl}
+              width={400}
+            />
+          </div>
 
           {/* Like and Comment buttons */}
           <div className="flex items-center justify-between mt-4">

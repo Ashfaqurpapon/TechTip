@@ -138,7 +138,7 @@ export default function Post({ post }: IProps) {
   };
 
   return (
-    <div className=" bg-slate-300 relative p-4 mb-2 rounded-md    shadow-lg shadow-purple-800">
+    <div className=" bg-slate-300 dark:bg-black  relative p-4 mb-2 rounded-md    shadow-lg shadow-purple-800">
       {/* Premium Button in upper-right corner */}
       <Link passHref href={`/following?userId=${userId}`} />
       {/* Card Header with post user information */}
@@ -168,14 +168,14 @@ export default function Post({ post }: IProps) {
               />
             </div>
           )} */}
-
-          <CldImage
-            className="ml-52"
-            alt={imageUrl}
-            height={200}
-            src={post.imageUrl}
-            width={400}
-          />
+          <div className="ml-52 mx-auto">
+            <CldImage
+              alt={imageUrl}
+              height={200}
+              src={post.imageUrl}
+              width={400}
+            />
+          </div>
 
           {/* Like and Comment buttons */}
           <div className="flex items-center justify-between mt-4">

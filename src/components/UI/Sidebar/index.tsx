@@ -108,9 +108,9 @@ const Sidebar = () => {
   };
 
   return (
-    <div>
+    <div className="">
       <div className="">
-        <div className="w-36 h-36 rounded-full overflow-hidden ml-15 border-2 border-gray-300">
+        <div className="w-36 h-36 rounded-full overflow-hidden ml-15 border-2 border-gray-300 ">
           <CldImage
             alt={user?.imageUrlID ?? ""}
             height={140}

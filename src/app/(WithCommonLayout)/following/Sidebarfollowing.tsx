@@ -145,7 +145,7 @@ export default function Sidebarfollowing({ user }: SidebarfollowingProps) {
 
   return (
     <div>
-      <div className="relative p-2  rounded-xl bg-slate-200 shadow-lg  ">
+      <div className="relative p-2  rounded-xl bg-slate-200 shadow-lg dark:bg-black dark:shadow-sm dark:shadow-red-400 ">
         {/* <div className="h-[330px] w-full rounded-md"></div> */}
         <div className="relative my-3">
           <CldImage
