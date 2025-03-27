@@ -11,6 +11,9 @@
   "dependencies": {
     "@bangladeshi/bangladesh-address": "^1.0.5",
     "@google/generative-ai": "^0.19.0",
+    "@heroui/switch": "^2.2.14",
+    "@heroui/system": "^2.4.12",
+    "@heroui/theme": "^2.4.12",
     "@hookform/resolvers": "^3.9.0",
     "@nextui-org/avatar": "^2.0.32",
     "@nextui-org/button": "2.0.37",
