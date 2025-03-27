@@ -1,0 +1,12 @@
+node_modules
+
+
+.eslintignore
+.eslintrc.json
+.gitignore
+.prettierrc.json
+bun.lockb
+Dockerfile
+# package-lock.json
+# package.json
+README.md
