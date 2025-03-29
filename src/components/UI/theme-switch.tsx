@@ -8,6 +8,7 @@ import { useIsSSR } from "@react-aria/ssr";
 import clsx from "clsx";
 
 import { SunFilledIcon, MoonFilledIcon } from "@/src/assets/icons";
+import Container from "./Container";
 
 export interface ThemeSwitchProps {
   className?: string;
@@ -25,17 +26,23 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({
     theme === "light" ? setTheme("dark") : setTheme("light");
   };
 
-  const { slots, isSelected, getBaseProps, getInputProps, getWrapperProps } =
-    useSwitch({
-      isSelected: theme === "light" || isSSR,
-      "aria-label": `Switch to ${
-        theme === "light" || isSSR ? "dark" : "light"
-      } mode`,
-      onChange,
-    });
+  const {
+    Component,
+    slots,
+    isSelected,
+    getBaseProps,
+    getInputProps,
+    getWrapperProps,
+  } = useSwitch({
+    isSelected: theme === "light" || isSSR,
+    "aria-label": `Switch to ${
+      theme === "light" || isSSR ? "dark" : "light"
+    } mode`,
+    onChange,
+  });
 
   return (
-    <div
+    <Component
       {...getBaseProps({
         className: clsx(
           "px-px transition-opacity hover:opacity-80 cursor-pointer",
@@ -72,6 +79,6 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({
           <MoonFilledIcon size={22} />
         )}
       </div>
-    </div>
+    </Component>
   );
 };

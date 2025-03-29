@@ -51,9 +51,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           {/* Pass the user data to the Sidebarfollowing */}
           <Sidebarfollowing user={user} />
         </div>
-        <div className="w-4/5">
-          {React.cloneElement(children as React.ReactElement, { userId })}
-        </div>
+        <div className="w-4/5">{children}</div>
       </div>
     </Container>
   );
